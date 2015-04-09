@@ -1,0 +1,40 @@
+<Widget>
+    <Kind>2</Kind>
+    <Name>TOGGLE ALL DEBUG</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>DRAW BODY INDEX</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>DRAW SKELETONS</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>DRAW DEPTH</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>DRAW CLIPPED DEPTH</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>DRAW LIVE SKEL DATA</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>DRAW LOADED SKEL DATA</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>SKEL PREVIEW SCALE</Name>
+    <Value>0.550000012</Value>
+</Widget>

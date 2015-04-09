@@ -1,0 +1,6 @@
+ofxOpenCv
+ofxXmlSettings
+ofxCv
+ofxKinectForWindows2
+ofxUI
+ofxUIManager

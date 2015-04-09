@@ -1,0 +1,115 @@
+<Widget>
+    <Kind>2</Kind>
+    <Name>TOGGLE CLIPPING</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>LIVE</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>RECORDED</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>LIVE NEAR CLIP</Name>
+    <Value>0.003424658</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>LIVE FAR CLIP</Name>
+    <Value>0.678082168</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>LIVE FLOOR NEAR CLIP</Name>
+    <Value>1.006849289</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>LIVE FLOOR FAR CLIP</Name>
+    <Value>0.616438389</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>LIVE CEILING NEAR CLIP</Name>
+    <Value>-0.294520557</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>LIVE CEILING FAR CLIP</Name>
+    <Value>0.253424644</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>LIVE LEFT NEAR CLIP</Name>
+    <Value>-0.041095883</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>LIVE LEFT FAR CLIP</Name>
+    <Value>0.369863033</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>LIVE RIGHT NEAR CLIP</Name>
+    <Value>0.705479503</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>LIVE RIGHT FAR CLIP</Name>
+    <Value>0.732876658</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>REC NEAR CLIP</Name>
+    <Value>0.047945205</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>REC FAR CLIP</Name>
+    <Value>0.773972631</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>REC FLOOR NEAR CLIP</Name>
+    <Value>0.904109597</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>REC FLOOR FAR CLIP</Name>
+    <Value>0.643835664</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>REC CEILING NEAR CLIP</Name>
+    <Value>29.863014221</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>REC CEILING FAR CLIP</Name>
+    <Value>0.376712322</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>REC LEFT NEAR CLIP</Name>
+    <Value>-0.260273993</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>REC LEFT FAR CLIP</Name>
+    <Value>0.609589100</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>REC RIGHT NEAR CLIP</Name>
+    <Value>1.095890403</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>REC RIGHT FAR CLIP</Name>
+    <Value>0.575342417</Value>
+</Widget>
