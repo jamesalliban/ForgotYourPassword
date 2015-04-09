@@ -1,0 +1,55 @@
+
+Processes.h - line 194 - add the following
+
+
+//this
+#if (_WIN32_WINNT < 0x0602)
+
+
+EXTERN_API( OSErr )
+GetProcessInformation           (const ProcessSerialNumber * PSN,
+                                 ProcessInfoRec *       info)                               THREEWORDINLINE(0x3F3C, 0x003A, 0xA88F);
+
+// and this
+
+
+
+
+#endif
+
+
+
+More errors? Look here for fix - http://rbarraza.com/setting-up-kinect-2-for-openframeworks/
+
+Basically do this:
+
+1. Using Project Generator, add a reference to your ofxKinectForWindows2 addon
+2. After opening your project in Visual Studio,ago to View > Other Windows > Property Manager and add the ofxKinectForWindows2.props file found inside the addon folder.
+
+3. Go to your Project’s Properties window and change to All Configurations
+
+4. Edit VC++ Directories > Include Directories and include $(KINECTSDK20_DIR)\inc;
+
+5. Edit VC++ Directories > Library Directories and include $(KINECTSDK20_DIR)\lib\x86;
+
+6. Edit Linker > General > Additional Library Directories and include $(KINECTSDK20_DIR)\Lib\x86;
+
+7. Edit Linker > Input > Additional Dependencies and include $(KINECTSDK20_DIR)\Lib\x86\Kinect20.lib;
+
+
+
+
+UIDefines.h
+
+#ifdef TARGET_OF_IOS
+    
+#define OFX_UI_FONT_NAME "GUI/Helvetica.ttf"
+
+#else
+    
+//#define OFX_UI_FONT_NAME "sans-serif"
+    
+#define OFX_UI_FONT_NAME "GUI/NewMedia Fett.ttf"
+
+
+#endif

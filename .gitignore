@@ -1,3 +1,10 @@
+# Project files
+FYP_Interactive/bin/data/image_sequences	
+FYP_Interactive/bin/data/recordings
+
+FYP_Interactive/ipch
+FYP_Interactive/obj
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
