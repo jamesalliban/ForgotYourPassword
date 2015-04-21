@@ -259,6 +259,12 @@
     <ClCompile Include="src\kinect\PoseManager.cpp">
       <Filter>src\kinect</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxHapPlayer\src\ofxHapPlayer.cpp">
+      <Filter>addons\ofxHapPlayer\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxHapPlayer\libs\HapSupport\src\HapSupport.c">
+      <Filter>addons\ofxHapPlayer\libs\HapSupport\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -410,6 +416,21 @@
     </Filter>
     <Filter Include="addons\ofxFastFboReader\src">
       <UniqueIdentifier>{652ad7ba-b8a2-4124-9d5a-457c5f91602d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxHapPlayer">
+      <UniqueIdentifier>{b80ebdb5-c158-4dec-9fb2-5c717500ab9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxHapPlayer\src">
+      <UniqueIdentifier>{71ad1e71-ff65-46e1-8d9d-b9e8308081f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxHapPlayer\libs">
+      <UniqueIdentifier>{fa5cf671-817b-403e-b863-5d319a62012a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxHapPlayer\libs\HapSupport">
+      <UniqueIdentifier>{f2bc4922-17ef-43ff-98ae-86349858e9e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxHapPlayer\libs\HapSupport\src">
+      <UniqueIdentifier>{8198515f-3d9e-42b5-bb91-6ad6d5aca67b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -953,14 +974,17 @@
     <ClInclude Include="src\visual\media\ThreadedImageSequenceExporter.h">
       <Filter>src\visual\media</Filter>
     </ClInclude>
-    <ClInclude Include="src\visual\media\ThreadedImageSequenceLoader.h">
-      <Filter>src\visual\media</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxFastFboReader\src\ofxFastFboReader.h">
       <Filter>addons\ofxFastFboReader\src</Filter>
     </ClInclude>
     <ClInclude Include="src\kinect\PoseManager.h">
       <Filter>src\kinect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxHapPlayer\src\ofxHapPlayer.h">
+      <Filter>addons\ofxHapPlayer\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxHapPlayer\libs\HapSupport\src\HapSupport.h">
+      <Filter>addons\ofxHapPlayer\libs\HapSupport\src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

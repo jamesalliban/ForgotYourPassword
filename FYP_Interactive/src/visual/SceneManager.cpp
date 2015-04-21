@@ -3,16 +3,28 @@
 void SceneManager::setup()
 {
 	depthFbo.allocate(512, 424);
+	videoFbo.allocate(512, 424);
 	
 	screenRecorder.setup();
 	screenRecorder.setImageFormat("tiff");
 	loadShaders();
 
 	isPlayingSequence = false;
+
+	contourFinder.setMinAreaRadius(10);
+	contourFinder.setMaxAreaRadius(150);
 }
 
 void SceneManager::update(Depth & depth)
 {
+	if (isPlayingSequence)
+	{
+	    player.update();
+		float threshold = ofMap(ofGetMouseX(), 0, ofGetWidth(), 0, 255);
+		contourFinder.setThreshold(40);
+	}
+
+
 	if (isLiveClipping)
 	{
 		depthFbo.begin();
@@ -63,24 +75,53 @@ void SceneManager::draw(Depth & depth)
 
 void SceneManager::drawDebug(Depth & depth)
 {
+	if (player.isLoaded() && isPlayingSequence)
+    {
+		videoFbo.begin();
+		ofClear(1.0,1.0,1.0,1.0);
+		player.draw(0,0);
+		videoFbo.end();
+		
+		ofPixels pix;
+		videoFbo.readToPixels(pix);
+		ofImage img;
+		img.setFromPixels(pix);
+		contourFinder.findContours(img);
+
+		img.draw(640 + 512, ofGetHeight() - player.getHeight());
+
+        // Draw the video frame
+        ofSetColor(255, 255, 255);
+		player.draw(640, ofGetHeight() - player.getHeight());
+
+		if (player.getCurrentFrame() == player.getTotalNumFrames())
+			isPlayingSequence = false;
+
+		ofPushMatrix();
+		ofTranslate(640 + 512, ofGetHeight() - player.getHeight());
+		contourFinder.draw();
+		ofPopMatrix();
+    }
+
 	if (isDrawDepth)
-		drawDepth(depth);
+		drawDepth(depth, 0, 480);
 
 	if (isDrawClippedDepth)
-		drawClippedDepth();
+		drawClippedDepth(0, 480 + 424);
 	
 	ofPushMatrix();
 	ofTranslate(640, 0);
-	ofScale(3.0, 3.0);
+	ofScale(2.0, 2.0);
 	depthFbo.draw(0, 0);
 	ofPopMatrix();
    
+
+
     if (screenRecorder.getIsRecording())
 	{
 		fastFboReader.readToPixels(depthFbo, pix);
 		screenRecorder.addFrame(pix);
 	}
-
 	ofPushStyle();
 	ofSetColor(0);
 	ofPushMatrix();
@@ -88,39 +129,21 @@ void SceneManager::drawDebug(Depth & depth)
 	screenRecorder.draw();
 	ofPopMatrix();
 	ofPopStyle();
-
-	if (isPlayingSequence)
-	{
-		if (imgSequenceLoader.q.size() > 0)
-		{
-			//cout << "drawing image - imgSequenceLoader.q.size() = " << imgSequenceLoader.q.size() << endl;
-			currentLoadedImg = imgSequenceLoader.getImage();
-			currentLoadedImg.setUseTexture(true);
-			currentLoadedImg.update();
-			currentLoadedImg.draw(200, 200);
-
-		}
-
-		ofPushStyle();
-		ofSetColor(0);
-		ofDrawBitmapString("q size = " + ofToString(imgSequenceLoader.q.size()), ofGetWidth() - 400, 300);
-		ofPopStyle();
-	}
 }
 
 
-void SceneManager::drawDepth(Depth & depth)
+void SceneManager::drawDepth(Depth & depth, int x, int y)
 {
 	depthShader.begin();
 	depthShader.setUniform1i("isClipping", 0);
-	depth.draw(0, 480);
+	depth.draw(x, y);
 	depthShader.end();
 }
 
 
-void SceneManager::drawClippedDepth()
+void SceneManager::drawClippedDepth(int x, int y)
 {
-	depthFbo.draw(0, 480 * 2.0);
+	depthFbo.draw(x, y);
 }
 
 
@@ -140,17 +163,27 @@ void SceneManager::toggleRecording()
 }
 
 
-void SceneManager::playImageSequence(int sequenceID)
+void SceneManager::playVideo(int sequenceID)
 {
-	isPlayingSequence = true;
-	//imgSequenceLoader.setLoadPath("recordings/recording_2015-04-02_14.17.04");
-	imgSequenceLoader.setLoadPath("image_sequences/sequence_" + ofToString(sequenceID));
-	imgSequenceLoader.startLoading();
+	if (!isPlayingSequence)
+	{
+		if (sequenceID == 5)
+			sequenceID = 4;
+		string sId = ofToString(sequenceID);
+		if (sId.size() < 2)
+			sId = '0' + sId;
+
+		player.loadMovie("movies/FYP_Sequence_" + sId + ".mov");
+		player.play();
+	
+		cout << "playVideo " << "movies/FYP_Sequence_" + sId + ".mov" << endl;
+
+		isPlayingSequence = true;
+	}
 }
 
 
 void SceneManager::exit()
 {
 	screenRecorder.exit();
-	imgSequenceLoader.waitForThread();
 }

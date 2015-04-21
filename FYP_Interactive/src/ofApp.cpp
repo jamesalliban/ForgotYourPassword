@@ -85,7 +85,7 @@ void ofApp::loadShaders()
 
 void ofApp::poseRecognised(Pose & eventPose)
 {
-	cout << "SHIIIIT FIRST TIME!!!! " << eventPose.id << endl;
+	sceneManager.playVideo(eventPose.id);
 }
 
 
@@ -113,15 +113,15 @@ void ofApp::keyPressed(int key)
 		poseManager.savePose();
 	}
 	if (key == '0')
-		sceneManager.playImageSequence(0);
+		sceneManager.playVideo(0);
 	if (key == '1')
-		sceneManager.playImageSequence(1);
+		sceneManager.playVideo(1);
 	if (key == '2')
-		sceneManager.playImageSequence(2);
+		sceneManager.playVideo(2);
 	if (key == '3')
-		sceneManager.playImageSequence(3);
+		sceneManager.playVideo(3);
 	if (key == '4')
-		sceneManager.playImageSequence(4);
+		sceneManager.playVideo(4);
 }
 
 

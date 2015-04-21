@@ -12,7 +12,7 @@
 
 typedef struct {
     string fileName;
-    ofImage image;
+    ofPixels pix;
 } QueuedSequenceImage;
 
 class ThreadedImageSequenceLoader : public ofThread
@@ -24,7 +24,9 @@ public:
     int counter;
     int imagesPlayed;
     ofDirectory dir;
+	int dirSize;
 	ofImage tmpImg;
+	ofPixels tmpPix;
     
     ThreadedImageSequenceLoader()
     {
@@ -42,10 +44,13 @@ public:
 					QueuedSequenceImage qImage;
 					ofFile file = dir.getFile(counter);
 					qImage.fileName = file.getFileName();
-					ofImage img;
-					img.setUseTexture(false);
-					img.loadImage(file);
-					qImage.image = img;
+					//qImage.pix = ofPixels();
+					//ofImage img;
+					//img.setUseTexture(false);
+					//img.loadImage(file);
+					//cout << (qImage.pix, loadPath + "/" + file.getFileName()) << endl;
+					ofLoadImage(qImage.pix, loadPath + "/s/" + file.getFileName());
+					//qImage.image = img;
 					q.push(qImage);
 					counter++;
 				}
@@ -62,6 +67,7 @@ public:
         loadPath = _loadPath;
         //loadPath = "image_sequences/recording_2015-04-02_14.23.43";
         dir.listDir(loadPath);
+		dirSize = dir.getFiles().size();
 	}
 
     void startLoading()
@@ -70,11 +76,12 @@ public:
         startThread(false, true);
     }
 
-	ofImage getImage()
+	ofPixels getImage()
 	{
-		tmpImg = q.front().image;
+		//tmpImg = q.front().image;
+		tmpPix = q.front().pix;
 		q.pop();
-		return tmpImg;
+		return tmpPix;
 	}    
 
     void clear()

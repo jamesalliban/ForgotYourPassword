@@ -4,9 +4,11 @@
 #include "ofxKinectForWindows2.h"
 #include "ofxFastFboReader.h"
 #include "ScreenRecorder.h"
-#include "ThreadedImageSequenceLoader.h"
+#include "ofxHapPlayer.h"
+#include "ofxCv.h"
 
 using namespace ofxKinectForWindows2::Source;
+using namespace ofxCv;
 
 class SceneManager
 {
@@ -15,12 +17,12 @@ public:
 	void update(Depth & depth);
 	void draw(Depth & depth);
 	void drawDebug(Depth & depth);
-	void drawDepth(Depth & depth);
-	void drawClippedDepth();
+	void drawDepth(Depth & depth, int x, int y);
+	void drawClippedDepth(int x, int y);
 
 	void loadShaders();
 	void toggleRecording();
-	void playImageSequence(int sequenceID);
+	void playVideo(int sequenceID);
 	void exit();
 
 
@@ -29,10 +31,13 @@ public:
 	ScreenRecorder screenRecorder;
 	ofxFastFboReader fastFboReader;
 	ofPixels pix;
-	ofImage currentLoadedImg;
+
+
 	
-	ThreadedImageSequenceLoader imgSequenceLoader;
+    ofxHapPlayer player;
+	ofFbo videoFbo;
 	bool isPlayingSequence;
+	ContourFinder contourFinder;
 
 	bool isClipping;
 
