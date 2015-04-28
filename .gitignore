@@ -9,9 +9,10 @@ FYP_Interactive/bin/data/recordings/
 FYP_Interactive/ipch
 FYP_Interactive/obj
 
-# *.tif
-# *.tiff
-# *.bmp
+*.tif
+*.tiff
+*.bmp
+*.mov
 
 *.exe
 *.dll
