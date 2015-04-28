@@ -28,6 +28,7 @@ void ofApp::setup()
 	ofSetWindowShape(1800, 1000);
 	ofSetFrameRate(30);
 	ofSetBackgroundAuto(false);
+	ofSetFullscreen(true);
 
 	kinectManager.setup();
 	poseManager.setup();
@@ -55,6 +56,7 @@ void ofApp::update()
 
 	if (isNewPoseHack)
 	{
+		cout << "NEW POSE" << endl;
 		isNewPoseHack = false;
 		poseManager.recordNewPose(kinectManager.getSkeletonData());
 	}
@@ -78,6 +80,18 @@ void ofApp::draw()
 	{
 		sceneManager.drawDebug(*kinectManager.kinect.getDepthSource());
 		poseManager.draw();
+
+		string debugStr;
+		debugStr += "----KINECT----\n"; 
+		debugStr += "Num Skeletons" + ofToString(kinectManager.getSkeletonData().size()) + "\n"; 
+		debugStr += "\n"; 
+		debugStr += "----AUDIO----\n"; 
+		debugStr += "smoothed amplitude = " + ofToString(smoothAmplitude) + "\n"; 
+
+		ofPushStyle();
+		ofSetColor(255);
+		ofDrawBitmapString(debugStr, 640 * 0.5, 20);
+		ofPopStyle();
 	}
 }
 
@@ -140,16 +154,14 @@ void ofApp::audioIn(float * input, int bufferSize, int nChannels)
 	//if (smoothAmplitude > minAmplitudeForEvent)
 	//	cout << "smoothAmplitude = " << smoothAmplitude << endl;
 
-
 	float amplitude = 0;
 	for (int i = 0; i < bufferSize; i++)
-		amplitude += abs(input[bufferSize]);
+		amplitude += abs(input[bufferSize]) * 10;
 	amplitude /= bufferSize;
 	
-	float prevSmoothAmplitude = smoothAmplitude;
 	smoothAmplitude = ofLerp(smoothAmplitude, amplitude, 0.1);
 
-	if (smoothAmplitude > minAmplitudeForEvent && ofGetFrameNum() - frameAtLastSoundEvent > 20 && isSoundEventActive)
+	if (smoothAmplitude > minAmplitudeForEvent && ofGetFrameNum() - frameAtLastSoundEvent > framesForSoundEvent && isSoundEventActive)
 	{
 		isNewPoseHack = true;
 		frameAtLastSoundEvent = ofGetFrameNum();

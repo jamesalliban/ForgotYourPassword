@@ -1,7 +1,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CONFIDENCE MAX THRESHOLD</Name>
-    <Value>0.860787690</Value>
+    <Value>0.828904092</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -11,5 +11,5 @@
 <Widget>
     <Kind>4</Kind>
     <Name>MAX FRAMES FOR CONF TRIGGER</Name>
-    <Value>30.804794312</Value>
+    <Value>25.530822754</Value>
 </Widget>

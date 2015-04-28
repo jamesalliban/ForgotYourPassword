@@ -55,8 +55,14 @@ void KinectManager::drawSkeletons()
 }
 
 
-
 vector<Body> KinectManager::getSkeletonData()
 {
-	return kinect.getBodySource()->getBodies();
+	vector<Body> bodies = kinect.getBodySource()->getBodies();
+	vector<Body> activeBodies;
+	for (int i = 0; i < kinect.getBodySource()->getBodies().size(); i++)
+	{
+		if (bodies[i].tracked)
+			activeBodies.push_back(bodies[i]);
+	}
+	return activeBodies;
 }

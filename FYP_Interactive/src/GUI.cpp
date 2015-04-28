@@ -104,8 +104,9 @@ void GUI::addRecordingGUI()
     ofxUICanvas* gui = getNewGUI("RECORD-PLAYBACK");
     gui->addLabel("RECORDING");
 	gui->addToggle("SOUND EVENT ACTIVE", &app->isSoundEventActive, toggleSize, toggleSize);
-	gui->addSlider("MIN AMPLITUDE FOR EVENT", 0.1, 0.9, &app->minAmplitudeForEvent, length, dim);
-
+	gui->addSlider("MIN AMPLITUDE FOR EVENT", 0.01, 0.2, &app->minAmplitudeForEvent, length, dim);
+	gui->addSlider("FRAMES FOR SOUND EVENT", 2, 30, &app->framesForSoundEvent, length, dim);
+	
     finaliseCanvas(gui);
 }
 

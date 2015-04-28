@@ -26,6 +26,7 @@ void PoseManager::loadSkelData()
 {
 	ofDirectory dir;
 	dir.listDir("xml");
+	loadedPoses.clear();
 	for (int i = 0; i < dir.size(); i++)
 	{
 		ofxXmlSettings skelData;
@@ -77,10 +78,13 @@ void PoseManager::update(vector<Body> bodies)
 		comparePoses(livePose, loadedPoses[i]);
 	}
 
-	populatePose(bodies, livePose);
-	calculateCorrectedJoints(livePose);
-	calculateJointVectors(livePose);
 
+	if (bodies.size() > 0)
+	{
+		populatePose(bodies, livePose);
+		calculateCorrectedJoints(livePose);
+		calculateJointVectors(livePose);
+	}
 }
 
 
@@ -106,7 +110,7 @@ void PoseManager::draw()
 		if (hasRecordingBeenTaken)
 		{
 			ofTranslate(ofGetWidth() - fboW, fboH);
-			ofScale(1.0, 1.0);
+			ofScale(1.0, 1.0); 
 			trackedPose.fbo.draw(0, 0);
 			ofDrawBitmapString("Recently tracked", 10, 20);
 			ofPopMatrix();
@@ -147,12 +151,18 @@ void PoseManager::draw()
 
 void PoseManager::recordNewPose(vector<Body> bodies)
 {
-	hasRecordingBeenTaken = true;
-	populatePose(bodies, recordedPose);
-	calculateCorrectedJoints(recordedPose);
-	calculateJointVectors(recordedPose);
-	drawPoseToFbo(recordedPose);
+	if (bodies.size() > 0)
+	{
+		hasRecordingBeenTaken = true;
+		populatePose(bodies, recordedPose);
+		calculateCorrectedJoints(recordedPose);
+		calculateJointVectors(recordedPose);
+		drawPoseToFbo(recordedPose);
+		savePose();
+		loadSkelData();
+	}
 }
+
 
 
 //TODO: only track one person - the one standing in the zone
@@ -214,7 +224,8 @@ void PoseManager::calculateCorrectedJoints(Pose & pose)
 		pose.jointsCorrected[i] = jointPos;
 	}
 }
-	
+
+
 void PoseManager::calculateJointVectors(Pose & pose)
 {
 	// add normalised joint vectors
@@ -233,7 +244,6 @@ void PoseManager::calculateJointVectors(Pose & pose)
 	pose.jointVectors[JointVectorType_ForearmRight] = ofVec3f(pose.joints[JointType_WristRight] - pose.joints[JointType_ElbowRight]).getNormalized();
 	pose.jointVectors[JointVectorType_HandRight] = ofVec3f(pose.joints[JointType_HandRight] - pose.joints[JointType_WristRight]).getNormalized();
 }
-
 
 
 void PoseManager::drawPoseToFbo(Pose & pose)
@@ -293,7 +303,6 @@ void PoseManager::drawPoseToFbo(Pose & pose)
 }
 
 
-
 void PoseManager::comparePoses(Pose & live, Pose & recorded)
 {
 	if (live.jointVectors.size() == recorded.jointVectors.size())
@@ -328,8 +337,6 @@ void PoseManager::comparePoses(Pose & live, Pose & recorded)
 		}
 	}
 }
-
-
 			
 
 void PoseManager::savePose()

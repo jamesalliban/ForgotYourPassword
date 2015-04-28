@@ -30,6 +30,7 @@ public:
 	ofSoundStream soundStream;
 	float smoothAmplitude;
 	float frameAtLastSoundEvent;
+	float framesForSoundEvent;
 	float minAmplitudeForEvent;
 	bool isSoundEventActive;
 

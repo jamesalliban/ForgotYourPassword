@@ -6,5 +6,10 @@
 <Widget>
     <Kind>4</Kind>
     <Name>MIN AMPLITUDE FOR EVENT</Name>
-    <Value>0.195890412</Value>
+    <Value>0.045136984</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>FRAMES FOR SOUND EVENT</Name>
+    <Value>5.931507111</Value>
 </Widget>
