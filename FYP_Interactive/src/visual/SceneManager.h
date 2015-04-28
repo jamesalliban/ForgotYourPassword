@@ -38,6 +38,7 @@ public:
 	ofFbo videoFbo;
 	bool isPlayingSequence;
 	ContourFinder contourFinder;
+	float videoSilhouetteThreshold;
 
 	bool isClipping;
 

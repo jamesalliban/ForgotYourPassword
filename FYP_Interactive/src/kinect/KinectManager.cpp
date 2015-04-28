@@ -31,11 +31,12 @@ void KinectManager::draw()
 	//for (int i = 0; i < skelCount; i++)
 	//{
 	//	ofxKinectForWindows2::Data::Body body = this->kinect.getBodySource()->getBodies()[0];
-
+	// 
 	//	if (body.tracked)
 	//		cout << i << " is tracked" << endl;
-	//	
-	//}
+	//  
+	//  
+	// }
 
 	
 	//this->kinect.getBodySource()->drawBodies(0,0,640,480);

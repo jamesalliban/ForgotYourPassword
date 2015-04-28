@@ -19,9 +19,13 @@ void SceneManager::update(Depth & depth)
 {
 	if (isPlayingSequence)
 	{
-	    player.update();
-		float threshold = ofMap(ofGetMouseX(), 0, ofGetWidth(), 0, 255);
-		contourFinder.setThreshold(40);
+		player.update();
+		if (player.getCurrentFrame() == player.getTotalNumFrames() - 1)
+		{
+			player.stop();
+			isPlayingSequence = false;
+		}
+		contourFinder.setThreshold(videoSilhouetteThreshold);
 	}
 
 

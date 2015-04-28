@@ -13,6 +13,7 @@ public:
     void addVariousGUI();
 	void addDepthBoundsGUI();
 	void addTrackingGUI();
+	void addSilhouetteGUI();
 	void addRecordingGUI();
     void addDebugGUI();
     //void addBackgroundGUI();

@@ -10,6 +10,7 @@ void GUI::setup()
     addVariousGUI();
     addDepthBoundsGUI();
     addTrackingGUI();
+	addSilhouetteGUI();
     addRecordingGUI();
     addDebugGUI();
     //addBackgroundGUI();
@@ -82,6 +83,17 @@ void GUI::addTrackingGUI()
 	gui->addSlider("CONFIDENCE MAX THRESHOLD", 0.5, 0.99, &app->poseManager.confidenceMaxThreshold, length, dim);
 	gui->addSlider("CONFIDENCE EXPO", 1.0, 5.0, &app->poseManager.confidenceExpo, length, dim);
     gui->addSlider("MAX FRAMES FOR CONF TRIGGER", 5, 60, &app->sceneManager.recNearCeilingClip, length, dim);
+	
+    finaliseCanvas(gui);
+}
+
+
+void GUI::addSilhouetteGUI()
+{
+    ofxUICanvas* gui = getNewGUI("SILHOUETTE");
+	
+    gui->addLabel("VIDEO");
+	gui->addSlider("VIDEO SILHOUETTE THRESHOLD", 0, 255, &app->sceneManager.videoSilhouetteThreshold, length, dim);
 	
     finaliseCanvas(gui);
 }

@@ -8,6 +8,7 @@ Using the following addons:
 
 ofxCv
 ofxFastFboReader
+ofxHapPlayer
 ofxKinectForWindows2
 ofxOpenCv
 ofxUI
