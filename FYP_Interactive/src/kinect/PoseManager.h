@@ -61,6 +61,7 @@ public:
 	float confidenceMaxThreshold;
 	float framesAtConfidenceLevel;
 	float confidenceExpo;
+	float maxFramesForConfTrigger;
 
 	ofEvent<Pose> poseRecognisedEvent;
 

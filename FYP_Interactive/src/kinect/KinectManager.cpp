@@ -19,10 +19,6 @@ void KinectManager::update()
 
 void KinectManager::draw()
 {
-	//this->kinect.getDepthSource()->draw(0,0,640,480); // note that the depth texture is RAW so may appear dark
-	//this->kinect.getColorSource()->draw(640,0,640,480);
-	//this->kinect.getInfraredSource()->draw(0,480,640,480);
-
 	if (isDrawBodyIndex) 
 		drawBodyIndex();
 
@@ -49,13 +45,13 @@ void KinectManager::draw()
 
 void KinectManager::drawBodyIndex()
 {
-	this->kinect.getBodyIndexSource()->draw(0,0,640,480);
+	this->kinect.getBodyIndexSource()->draw(0, 0, 640 * 0.5, 480 * 0.5);
 }
 
 
 void KinectManager::drawSkeletons()
 {
-	this->kinect.getBodySource()->drawProjected(0,0,640,480);
+	this->kinect.getBodySource()->drawProjected(0, 0, 640 * 0.5, 480 * 0.5);
 }
 
 

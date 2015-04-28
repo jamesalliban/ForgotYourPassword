@@ -67,6 +67,8 @@ public:
 	bool isDrawDepth;
 	bool isDrawClippedDepth;
 	bool isLiveClipping;
+	bool isDrawLargeClippedDepth;
+	float largeClippingScale;
 
 	bool isRecording;
 };

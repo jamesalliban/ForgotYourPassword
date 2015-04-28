@@ -20,6 +20,7 @@ FYP_Interactive/obj
 *.ilk
 *.lib
 *.pdb
+*.opensdf
 
 # Windows image file caches
 Thumbs.db

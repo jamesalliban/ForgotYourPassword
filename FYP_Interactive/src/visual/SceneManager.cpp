@@ -92,34 +92,36 @@ void SceneManager::drawDebug(Depth & depth)
 		img.setFromPixels(pix);
 		contourFinder.findContours(img);
 
-		img.draw(640 + 512, ofGetHeight() - player.getHeight());
+		img.draw(512, ofGetHeight() - player.getHeight());
 
         // Draw the video frame
         ofSetColor(255, 255, 255);
-		player.draw(640, ofGetHeight() - player.getHeight());
+		player.draw(0, ofGetHeight() - player.getHeight());
 
 		if (player.getCurrentFrame() == player.getTotalNumFrames())
 			isPlayingSequence = false;
 
 		ofPushMatrix();
-		ofTranslate(640 + 512, ofGetHeight() - player.getHeight());
+		ofTranslate(512, ofGetHeight() - player.getHeight());
 		contourFinder.draw();
 		ofPopMatrix();
     }
 
 	if (isDrawDepth)
-		drawDepth(depth, 0, 480);
+		drawDepth(depth, 0, 480 * 0.5);
 
 	if (isDrawClippedDepth)
-		drawClippedDepth(0, 480 + 424);
+		drawClippedDepth(0, 480 * 0.5 + 424 * 0.6);
 	
-	ofPushMatrix();
-	ofTranslate(640, 0);
-	ofScale(2.0, 2.0);
-	depthFbo.draw(0, 0);
-	ofPopMatrix();
+	if (isDrawLargeClippedDepth)
+	{
+		ofPushMatrix();
+		ofTranslate(640 * 0.5, 0);
+		ofScale(largeClippingScale, largeClippingScale);
+		depthFbo.draw(0, 0);
+		ofPopMatrix();
+	}
    
-
 
     if (screenRecorder.getIsRecording())
 	{
@@ -140,14 +142,14 @@ void SceneManager::drawDepth(Depth & depth, int x, int y)
 {
 	depthShader.begin();
 	depthShader.setUniform1i("isClipping", 0);
-	depth.draw(x, y);
+	depth.draw(x, y, depth.getWidth() * 0.6, depth.getHeight() * 0.6);
 	depthShader.end();
 }
 
 
 void SceneManager::drawClippedDepth(int x, int y)
 {
-	depthFbo.draw(x, y);
+	depthFbo.draw(x, y, depthFbo.getWidth() * 0.6, depthFbo.getHeight() * 0.6);
 }
 
 

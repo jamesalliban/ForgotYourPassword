@@ -82,7 +82,7 @@ void GUI::addTrackingGUI()
 	
 	gui->addSlider("CONFIDENCE MAX THRESHOLD", 0.5, 0.99, &app->poseManager.confidenceMaxThreshold, length, dim);
 	gui->addSlider("CONFIDENCE EXPO", 1.0, 5.0, &app->poseManager.confidenceExpo, length, dim);
-    gui->addSlider("MAX FRAMES FOR CONF TRIGGER", 5, 60, &app->sceneManager.recNearCeilingClip, length, dim);
+    gui->addSlider("MAX FRAMES FOR CONF TRIGGER", 5, 60, &app->poseManager.maxFramesForConfTrigger, length, dim);
 	
     finaliseCanvas(gui);
 }
@@ -123,13 +123,16 @@ void GUI::addDebugGUI()
 	gui->addToggle("DRAW SKELETONS", &app->kinectManager.isDrawSkeletons, toggleSize, toggleSize);
 	gui->addToggle("DRAW DEPTH", &app->sceneManager.isDrawDepth, toggleSize, toggleSize);
 	gui->addToggle("DRAW CLIPPED DEPTH", &app->sceneManager.isDrawClippedDepth, toggleSize, toggleSize);
+	gui->addToggle("DRAW LARGE CLIPPED DEPTH", &app->sceneManager.isDrawLargeClippedDepth, toggleSize, toggleSize);
+	gui->addSlider("LARGE CLIPPED DEPTH SCALE", 1.0, 3.0, &app->sceneManager.largeClippingScale, length, dim);
+
+
 	
 	gui->addSpacer(length, 1);
     gui->addLabel("SKELETAL");
 	gui->addToggle("DRAW LIVE SKEL DATA", &app->poseManager.isLiveSkelelDataVisible, toggleSize, toggleSize);
 	gui->addToggle("DRAW LOADED SKEL DATA", &app->poseManager.isLoadedSkelelDataVisible, toggleSize, toggleSize);
 	gui->addSlider("SKEL PREVIEW SCALE", 0.1, 1.0, &app->poseManager.loadedPreviewScale, length, dim);
-
 	finaliseCanvas(gui);
 }
 

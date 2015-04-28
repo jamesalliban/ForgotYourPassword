@@ -25,8 +25,9 @@ void ofApp::setup()
 {
 	//ofSetLogLevel(OF_LOG_VERBOSE);
 	ofSetLogLevel(OF_LOG_SILENT);
-	ofSetWindowShape(2600, 1400);
+	ofSetWindowShape(1800, 1000);
 	ofSetFrameRate(30);
+	ofSetBackgroundAuto(false);
 
 	kinectManager.setup();
 	poseManager.setup();
@@ -62,6 +63,10 @@ void ofApp::update()
 
 void ofApp::draw()
 {
+	ofPushStyle();
+	ofSetColor(40);
+	ofRect(0, 0, ofGetWidth(), ofGetHeight());
+	ofPopStyle();
 	//this->kinect.getLongExposureInfraredSource()->draw(0,0,640, 480);
 
 	if (isDebugVisible)
@@ -102,6 +107,10 @@ void ofApp::keyPressed(int key)
 	if (key == 'r')
 	{
 		sceneManager.toggleRecording();
+	}
+	if (key == 'f')
+	{
+		ofToggleFullscreen();
 	}
 	if (key == 's')
 	{

@@ -101,14 +101,16 @@ void PoseManager::draw()
 		ofPopMatrix();
 	
 		ofPushMatrix();
-		ofTranslate(ofGetWidth() - fboW, fboH);
-		ofScale(1.0, 1.0);
-		trackedPose.fbo.draw(0, 0);
-		ofDrawBitmapString("Last tracked", 10, 20);
-		ofPopMatrix();
+
 
 		if (hasRecordingBeenTaken)
 		{
+			ofTranslate(ofGetWidth() - fboW, fboH);
+			ofScale(1.0, 1.0);
+			trackedPose.fbo.draw(0, 0);
+			ofDrawBitmapString("Recently tracked", 10, 20);
+			ofPopMatrix();
+
 			ofPushMatrix();
 			ofTranslate(ofGetWidth() - fboW, fboH * 2);
 			recordedPose.fbo.draw(0, 0);
@@ -133,7 +135,7 @@ void PoseManager::draw()
 			ofSetColor(255, 40);
 			ofRect(0,  (-fboH * pose->confidence) + fboH, fboW, fboH * pose->confidence);
 			ofSetColor(255);
-			ofDrawBitmapString("Loaded Pose " + ofToString(i) + "\n" + ofToString(pose->confidence), 10, 20);
+			ofDrawBitmapString("Pose " + ofToString(i) + "\n" + ofToString(pose->confidence), 10, 20);
 			ofPopMatrix();
 		}
 	}
@@ -239,7 +241,7 @@ void PoseManager::drawPoseToFbo(Pose & pose)
 	ofPushStyle();
 	pose.fbo.begin();
 	ofClear(1.0, 1.0, 1.0, 1.0);
-	ofSetColor(40);
+	ofSetColor(0);
 	ofRect(0, 0, fboW, fboH);
 	
 	ofPushMatrix();
@@ -310,7 +312,7 @@ void PoseManager::comparePoses(Pose & live, Pose & recorded)
 		if (recorded.confidence > confidenceMaxThreshold)
 		{
 			recorded.framesAtConfidenceLevel++;
-			if (recorded.framesAtConfidenceLevel >= 30)
+			if (recorded.framesAtConfidenceLevel >= maxFramesForConfTrigger)
 			{
 				cout << "EVENT - " << recorded.id << endl;
 				recorded.framesAtConfidenceLevel = 0;
