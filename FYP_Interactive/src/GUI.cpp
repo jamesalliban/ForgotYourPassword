@@ -92,8 +92,8 @@ void GUI::addSilhouetteGUI()
 {
     ofxUICanvas* gui = getNewGUI("SILHOUETTE");
 	
-    gui->addLabel("VIDEO");
-	gui->addSlider("VIDEO SILHOUETTE THRESHOLD", 0, 255, &app->sceneManager.videoSilhouetteThreshold, length, dim);
+    gui->addLabel("DANCER");
+	gui->addSlider("D IMAGE CONTOUR THRESHOLD", 0, 255, &app->sceneManager.dancerSilhouette.imageContourThreshold, length, dim);
 	
     finaliseCanvas(gui);
 }

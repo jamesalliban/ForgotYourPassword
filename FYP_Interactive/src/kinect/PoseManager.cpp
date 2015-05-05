@@ -17,9 +17,9 @@ void PoseManager::setup()
 	trackedPose.framesAtConfidenceLevel = 0;
 	livePose.framesAtConfidenceLevel = 0;
 	
-	loadSkelData();
-
 	hasRecordingBeenTaken = false;
+
+	loadSkelData();
 }
 
 void PoseManager::loadSkelData()
@@ -58,7 +58,7 @@ void PoseManager::loadSkelData()
 		else{
 			ofLogError("Position file did not load!");
 		}
-
+		if (loadedPoses.size() > 0) hasRecordingBeenTaken = true;
 	}
 }
 
@@ -128,12 +128,25 @@ void PoseManager::draw()
 	
 	if (isLoadedSkelelDataVisible)
 	{
+		int maxRowSize = 1400;
 		int n = loadedPoses.size();
 		for (int i = 0; i < n; i++)
 		{
+			float totalW = n * fboW * loadedPreviewScale;
+			float totalRows = ceil(totalW / maxRowSize);
+			int fbosPerRow = (float)maxRowSize / (float)(fboW * loadedPreviewScale);
+			int thisRow = i / fbosPerRow;
+
+			int x = fboW * (i % fbosPerRow) * loadedPreviewScale;
+			int y = thisRow * fboH * loadedPreviewScale;
+
 			Pose* pose = &loadedPoses[i];
 			ofPushMatrix();
-			ofTranslate(ofGetWidth() - fboW - (fboW * abs(i - n)) * loadedPreviewScale, 0);
+			ofTranslate(x, y);
+			if (totalRows == 1)
+				ofTranslate(ofGetWidth() - fboW - (n * fboW * loadedPreviewScale), 0);
+			else
+				ofTranslate(ofGetWidth() - fboW - (fbosPerRow * fboW * loadedPreviewScale), 0);
 			ofScale(loadedPreviewScale, loadedPreviewScale);
 			pose->fbo.draw(0, 0);
 			ofSetColor(255, 40);

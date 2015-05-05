@@ -10,14 +10,14 @@ void SceneManager::setup()
 	loadShaders();
 
 	isPlayingSequence = false;
-
-	contourFinder.setMinAreaRadius(10);
-	contourFinder.setMaxAreaRadius(150);
+	
+	userSilhouette.setup();
+	dancerSilhouette.setup();
 }
 
 void SceneManager::update(Depth & depth)
 {
-	if (isPlayingSequence)
+	if (player.isLoaded() && isPlayingSequence)
 	{
 		player.update();
 		if (player.getCurrentFrame() == player.getTotalNumFrames() - 1)
@@ -25,7 +25,16 @@ void SceneManager::update(Depth & depth)
 			player.stop();
 			isPlayingSequence = false;
 		}
-		contourFinder.setThreshold(videoSilhouetteThreshold);
+
+		videoFbo.begin();
+		ofClear(1.0,1.0,1.0,1.0);
+		player.draw(0,0);
+		videoFbo.end();
+
+		ofPixels pix;
+		videoFbo.readToPixels(pix);
+		videoImg.setFromPixels(pix);
+		dancerSilhouette.update(videoImg);
 	}
 
 
@@ -74,6 +83,14 @@ void SceneManager::update(Depth & depth)
 
 void SceneManager::draw(Depth & depth)
 {
+	if (player.isLoaded() && isPlayingSequence)
+	{
+		ofPushMatrix();
+		ofTranslate(400, 200);
+		ofScale(2, 2);
+		dancerSilhouette.draw();
+		ofPopMatrix();
+	}
 }
 
 
@@ -81,18 +98,7 @@ void SceneManager::drawDebug(Depth & depth)
 {
 	if (player.isLoaded() && isPlayingSequence)
     {
-		videoFbo.begin();
-		ofClear(1.0,1.0,1.0,1.0);
-		player.draw(0,0);
-		videoFbo.end();
-		
-		ofPixels pix;
-		videoFbo.readToPixels(pix);
-		ofImage img;
-		img.setFromPixels(pix);
-		contourFinder.findContours(img);
-
-		img.draw(512, ofGetHeight() - player.getHeight());
+		videoImg.draw(512, ofGetHeight() - player.getHeight());
 
         // Draw the video frame
         ofSetColor(255, 255, 255);
@@ -103,7 +109,7 @@ void SceneManager::drawDebug(Depth & depth)
 
 		ofPushMatrix();
 		ofTranslate(512, ofGetHeight() - player.getHeight());
-		contourFinder.draw();
+		dancerSilhouette.drawContour();
 		ofPopMatrix();
     }
 
@@ -128,6 +134,7 @@ void SceneManager::drawDebug(Depth & depth)
 		fastFboReader.readToPixels(depthFbo, pix);
 		screenRecorder.addFrame(pix);
 	}
+
 	ofPushStyle();
 	ofSetColor(0);
 	ofPushMatrix();

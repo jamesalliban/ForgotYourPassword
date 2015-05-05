@@ -241,17 +241,11 @@
     <ClCompile Include="..\..\..\addons\ofxUIManager\src\ofxUIManager.cpp">
       <Filter>addons\ofxUIManager\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\visual\SceneManager.cpp">
-      <Filter>src\visual</Filter>
-    </ClCompile>
     <ClCompile Include="src\GUI.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\kinect\KinectManager.cpp">
       <Filter>src\kinect</Filter>
-    </ClCompile>
-    <ClCompile Include="src\visual\media\ScreenRecorder.cpp">
-      <Filter>src\visual\media</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxFastFboReader\src\ofxFastFboReader.cpp">
       <Filter>addons\ofxFastFboReader\src</Filter>
@@ -264,6 +258,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxHapPlayer\libs\HapSupport\src\HapSupport.c">
       <Filter>addons\ofxHapPlayer\libs\HapSupport\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\visual\SceneManager.cpp">
+      <Filter>src\visual</Filter>
+    </ClCompile>
+    <ClCompile Include="src\visual\Silhouette.cpp">
+      <Filter>src\visual</Filter>
+    </ClCompile>
+    <ClCompile Include="src\visual\media\ScreenRecorder.cpp">
+      <Filter>src\visual\media</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -405,12 +408,6 @@
     <Filter Include="src\kinect">
       <UniqueIdentifier>{20fceb62-720b-4df2-92bc-a3fab25536e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\visual">
-      <UniqueIdentifier>{15908ffe-460f-4485-b1e6-3987f158b88f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\visual\media">
-      <UniqueIdentifier>{551bfbe2-a2d2-4c2d-888d-d26d47203403}</UniqueIdentifier>
-    </Filter>
     <Filter Include="addons\ofxFastFboReader">
       <UniqueIdentifier>{8b61210a-c2c5-4e01-8cfc-7b45773fc6be}</UniqueIdentifier>
     </Filter>
@@ -431,6 +428,12 @@
     </Filter>
     <Filter Include="addons\ofxHapPlayer\libs\HapSupport\src">
       <UniqueIdentifier>{8198515f-3d9e-42b5-bb91-6ad6d5aca67b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\visual">
+      <UniqueIdentifier>{8479b3c6-a68c-4424-b654-d1ac35c3f17d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\visual\media">
+      <UniqueIdentifier>{6b978f2d-9d85-4acb-afc7-43403137bb37}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -959,20 +962,11 @@
     <ClInclude Include="..\..\..\addons\ofxUIManager\src\ofxUIManager.h">
       <Filter>addons\ofxUIManager\src</Filter>
     </ClInclude>
-    <ClInclude Include="src\visual\SceneManager.h">
-      <Filter>src\visual</Filter>
-    </ClInclude>
     <ClInclude Include="src\GUI.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\kinect\KinectManager.h">
       <Filter>src\kinect</Filter>
-    </ClInclude>
-    <ClInclude Include="src\visual\media\ScreenRecorder.h">
-      <Filter>src\visual\media</Filter>
-    </ClInclude>
-    <ClInclude Include="src\visual\media\ThreadedImageSequenceExporter.h">
-      <Filter>src\visual\media</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxFastFboReader\src\ofxFastFboReader.h">
       <Filter>addons\ofxFastFboReader\src</Filter>
@@ -985,6 +979,21 @@
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxHapPlayer\libs\HapSupport\src\HapSupport.h">
       <Filter>addons\ofxHapPlayer\libs\HapSupport\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\visual\SceneManager.h">
+      <Filter>src\visual</Filter>
+    </ClInclude>
+    <ClInclude Include="src\visual\Silhouette.h">
+      <Filter>src\visual</Filter>
+    </ClInclude>
+    <ClInclude Include="src\visual\media\ScreenRecorder.h">
+      <Filter>src\visual\media</Filter>
+    </ClInclude>
+    <ClInclude Include="src\visual\media\ThreadedImageSequenceExporter.h">
+      <Filter>src\visual\media</Filter>
+    </ClInclude>
+    <ClInclude Include="src\visual\media\ThreadedImageSequenceLoader.h">
+      <Filter>src\visual\media</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

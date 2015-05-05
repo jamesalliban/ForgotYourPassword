@@ -184,6 +184,7 @@
     <ClCompile Include="..\..\..\addons\ofxUIManager\src\ofxUIManager.cpp" />
     <ClCompile Include="src\visual\media\ScreenRecorder.cpp" />
     <ClCompile Include="src\visual\SceneManager.cpp" />
+    <ClCompile Include="src\visual\Silhouette.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\addons\ofxFastFboReader\src\ofxFastFboReader.h" />
@@ -369,7 +370,9 @@
     <ClInclude Include="..\..\..\addons\ofxUIManager\src\ofxUIManager.h" />
     <ClInclude Include="src\visual\media\ScreenRecorder.h" />
     <ClInclude Include="src\visual\media\ThreadedImageSequenceExporter.h" />
+    <ClInclude Include="src\visual\media\ThreadedImageSequenceLoader.h" />
     <ClInclude Include="src\visual\SceneManager.h" />
+    <ClInclude Include="src\visual\Silhouette.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">

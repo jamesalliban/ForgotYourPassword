@@ -7,7 +7,7 @@ TODO:
 		- create pose from live kinect
 		- add normalised joint vectors
 		- compare recorded normalised joint vectors to live skel using confidence system
-	- Record a series of poses and save to csv files.
+	- Record a series of poses and save to xml files.
 	- Link poses to dance sequences.
 	- Limit the interaction to people standing in a specifit zone
 - Test on projector

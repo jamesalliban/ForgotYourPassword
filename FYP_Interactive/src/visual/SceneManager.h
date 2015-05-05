@@ -5,10 +5,9 @@
 #include "ofxFastFboReader.h"
 #include "ScreenRecorder.h"
 #include "ofxHapPlayer.h"
-#include "ofxCv.h"
+#include "Silhouette.h"
 
 using namespace ofxKinectForWindows2::Source;
-using namespace ofxCv;
 
 class SceneManager
 {
@@ -27,18 +26,20 @@ public:
 
 
 	ofShader depthShader;
+
+	Silhouette userSilhouette;
+	Silhouette dancerSilhouette;
+
 	ofFbo depthFbo;
 	ScreenRecorder screenRecorder;
 	ofxFastFboReader fastFboReader;
 	ofPixels pix;
 
-
-	
     ofxHapPlayer player;
 	ofFbo videoFbo;
+	ofImage videoImg;
 	bool isPlayingSequence;
-	ContourFinder contourFinder;
-	float videoSilhouetteThreshold;
+
 
 	bool isClipping;
 
