@@ -29,7 +29,7 @@ void Silhouette::draw()
 			//polyline.addVertex(contourFinder.getContour(i)[j]);
 			//polyline.addVertices(contourFinder.getContour(i));
 		}
-		polyline = polyline.getResampledByCount(100);
+		polyline = polyline.getResampledByCount(ofMap(ofGetMouseX(), 0, ofGetWidth(), 3, 300));
 		polylines.push_back(polyline);
 	}
 

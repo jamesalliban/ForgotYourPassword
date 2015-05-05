@@ -243,19 +243,19 @@ void PoseManager::calculateJointVectors(Pose & pose)
 {
 	// add normalised joint vectors
 	pose.jointVectors.clear();
-	pose.jointVectors.resize(8);
+	pose.jointVectors.resize(6);
 
 	//pose.jointVectors[JointVectorType_Head] = ofVec3f(pose.joints[JointType_Head] - pose.joints[JointType_Neck]).getNormalized();
 
 	pose.jointVectors[JointVectorType_ShoulderLeft] = ofVec3f(pose.joints[JointType_ShoulderLeft] - pose.joints[JointType_SpineShoulder]).getNormalized();
 	pose.jointVectors[JointVectorType_UpperArmLeft] = ofVec3f(pose.joints[JointType_ElbowLeft] - pose.joints[JointType_ShoulderLeft]).getNormalized();
 	pose.jointVectors[JointVectorType_ForearmLeft] = ofVec3f(pose.joints[JointType_WristLeft] - pose.joints[JointType_ElbowLeft]).getNormalized();
-	pose.jointVectors[JointVectorType_HandLeft] = ofVec3f(pose.joints[JointType_HandLeft] - pose.joints[JointType_WristLeft]).getNormalized();
+	//pose.jointVectors[JointVectorType_HandLeft] = ofVec3f(pose.joints[JointType_HandLeft] - pose.joints[JointType_WristLeft]).getNormalized();
 
 	pose.jointVectors[JointVectorType_ShoulderRight] = ofVec3f(pose.joints[JointType_ShoulderRight] - pose.joints[JointType_SpineShoulder]).getNormalized();
 	pose.jointVectors[JointVectorType_UpperArmRight] = ofVec3f(pose.joints[JointType_ElbowRight] - pose.joints[JointType_ShoulderRight]).getNormalized();
 	pose.jointVectors[JointVectorType_ForearmRight] = ofVec3f(pose.joints[JointType_WristRight] - pose.joints[JointType_ElbowRight]).getNormalized();
-	pose.jointVectors[JointVectorType_HandRight] = ofVec3f(pose.joints[JointType_HandRight] - pose.joints[JointType_WristRight]).getNormalized();
+	//pose.jointVectors[JointVectorType_HandRight] = ofVec3f(pose.joints[JointType_HandRight] - pose.joints[JointType_WristRight]).getNormalized();
 }
 
 
@@ -372,6 +372,22 @@ void PoseManager::savePose()
 	skelData.popTag();
 	
 	skelData.saveFile(ofToDataPath("xml/" + getFileName() + ".xml"));
+}
+
+
+vector<ofImage> PoseManager::getPoseImages()
+{
+	vector<ofImage> poseImages;
+	for (int i = 0; i < loadedPoses.size(); i++)
+	{
+		Pose &pose = loadedPoses[i];
+		ofImage img;
+		ofPixels pix;
+		pose.fbo.readToPixels(pix);
+		img.setFromPixels(pix);
+		poseImages.push_back(img);
+	}
+	return poseImages;
 }
 
 

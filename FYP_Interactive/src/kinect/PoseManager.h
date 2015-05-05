@@ -24,11 +24,9 @@ enum _JointVectorType
         JointVectorType_ShoulderLeft = 0, // left shoulder - centre spine
         JointVectorType_UpperArmLeft = 1, // left elbow - left shoulder 
         JointVectorType_ForearmLeft = 2, // left wrist - left elbow
-        JointVectorType_HandLeft = 3, // left hand - left wrist
-        JointVectorType_ShoulderRight = 4,
-        JointVectorType_UpperArmRight = 5,
-        JointVectorType_ForearmRight = 6,
-        JointVectorType_HandRight = 7,
+        JointVectorType_ShoulderRight = 3,
+        JointVectorType_UpperArmRight = 4,
+        JointVectorType_ForearmRight = 5,
     } ;
 
 class PoseManager
@@ -44,7 +42,9 @@ public:
 	void calculateJointVectors(Pose & pose);
 	void drawPoseToFbo(Pose & pose);
 	void comparePoses(Pose & live, Pose & recorded);
+	vector<ofImage> getPoseImages();
 	void savePose();
+
 	string getFileName();
 	
 	Pose recordedPose;

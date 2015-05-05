@@ -1,16 +1,16 @@
 #include "GUI.h"
 #include "ofApp.h"
 
-void GUI::setup()
+void GUI::setup(int sequenceSize, vector<ofImage> skelImages)
 {
     app = (ofApp*)ofGetAppPtr();
-    ofxUIManager::setup();
+    ofxUIManager::setup(350);
 	
-    
     addVariousGUI();
     addDepthBoundsGUI();
     addTrackingGUI();
 	addSilhouetteGUI();
+	addSequenceSelectorGUI(sequenceSize, skelImages);
     addRecordingGUI();
     addDebugGUI();
     //addBackgroundGUI();
@@ -99,6 +99,29 @@ void GUI::addSilhouetteGUI()
 }
 
 
+void GUI::addSequenceSelectorGUI(int sequenceSize, vector<ofImage> skelImages)
+{
+    ofxUICanvas* gui = getNewGUI("SEQUENCE");
+	
+	ofDirectory dir;
+	dir.listDir("images");
+	
+
+	for (int i = 0; i < dir.size(); i++)
+	{
+		ofxUIImageButton * btn = new ofxUIImageButton(100, 80, false, "images/" + dir.getFile(i).getFileName(), "SQ " + ofToString(i));
+		if (i % 3 == 0) 
+			gui->addWidgetDown(btn);
+		else
+			gui->addWidgetRight(btn);
+	}
+
+    finaliseCanvas(gui);
+	ofAddListener(gui->newGUIEvent, this, &GUI::sequenceSelectorGUIEvent);
+}
+
+	
+
 void GUI::addRecordingGUI()
 {
     ofxUICanvas* gui = getNewGUI("RECORD-PLAYBACK");
@@ -106,7 +129,6 @@ void GUI::addRecordingGUI()
 	gui->addToggle("SOUND EVENT ACTIVE", &app->isSoundEventActive, toggleSize, toggleSize);
 	gui->addSlider("MIN AMPLITUDE FOR EVENT", 0.01, 0.2, &app->minAmplitudeForEvent, length, dim);
 	gui->addSlider("FRAMES FOR SOUND EVENT", 2, 30, &app->framesForSoundEvent, length, dim);
-	
     finaliseCanvas(gui);
 }
 
@@ -165,4 +187,12 @@ void GUI::debugGUIEvent(ofxUIEventArgs &e)
         if (toggle->getValue())
 			app->sceneManager.isLiveClipping = false;
     }
+}
+
+
+void GUI::sequenceSelectorGUIEvent(ofxUIEventArgs &e)
+{
+	string name = e.widget->getName().substr(3);
+	cout << "SQ - - - - - - '" << name << "'" << endl;
+	app->sceneManager.playVideo(ofToInt(name));
 }

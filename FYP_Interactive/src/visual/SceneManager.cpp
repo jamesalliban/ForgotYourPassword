@@ -12,7 +12,7 @@ void SceneManager::setup()
 	isPlayingSequence = false;
 	
 	userSilhouette.setup();
-	dancerSilhouette.setup();
+	dancerSilhouette.setup();	
 }
 
 void SceneManager::update(Depth & depth)
@@ -27,7 +27,7 @@ void SceneManager::update(Depth & depth)
 		}
 
 		videoFbo.begin();
-		ofClear(1.0,1.0,1.0,1.0);
+		ofClear(1.0, 1.0, 1.0, 1.0);
 		player.draw(0,0);
 		videoFbo.end();
 
@@ -193,6 +193,14 @@ void SceneManager::playVideo(int sequenceID)
 
 		isPlayingSequence = true;
 	}
+}
+
+
+int SceneManager::getSequenceSize()
+{
+	ofDirectory dir;
+	dir.listDir("movies");
+	return dir.getFiles().size();
 }
 
 

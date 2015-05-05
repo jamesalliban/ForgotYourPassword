@@ -8,17 +8,19 @@ class ofApp;
 class GUI : public ofxUIManager
 {
 public:
-    virtual void setup();
+    virtual void setup(int sequenceSize, vector<ofImage> skelImages);
 
     void addVariousGUI();
 	void addDepthBoundsGUI();
 	void addTrackingGUI();
 	void addSilhouetteGUI();
+	void addSequenceSelectorGUI(int sequenceSize, vector<ofImage> skelImages);
 	void addRecordingGUI();
     void addDebugGUI();
     //void addBackgroundGUI();
     
     void debugGUIEvent(ofxUIEventArgs &e);
+    void sequenceSelectorGUIEvent(ofxUIEventArgs &e);
     
     ofApp* app;
 };

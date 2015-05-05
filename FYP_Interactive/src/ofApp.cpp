@@ -3,20 +3,34 @@
 /*
 TODO: 
 - Unlock dance sequences with poses:
-	- Setup system to calculate vectors between skeletal joints. 
-		- create pose from live kinect
-		- add normalised joint vectors
-		- compare recorded normalised joint vectors to live skel using confidence system
-	- Record a series of poses and save to xml files.
 	- Link poses to dance sequences.
 	- Limit the interaction to people standing in a specifit zone
 - Test on projector
 - Graphical silhouettes:
-	- set up shader to blur the images.
-	- Use OpenCV of get contours of main blob.
-	- Resample polyline.
+	- set up shader to blur the images - this should reduce noise and combine separate blobs
+	- Add Resample stuff to gui.
 	- Play
-- Batch convert all images to proper tiffs using FastStone
+		- Motion reduces resample count
+- Sort out dance videos
+    - Batch convert all images to proper tiffs using FastStone - - IS THIS STILL REQUIRED?????
+	- Create hap videos in Premiere.
+
+- Only track a single person in a specific location/zone.
+- After a 30 seconds no recognised stance, show a few random stances. Continue every 10 seconds until one is recognised
+
+- Transition
+	- Match x, y and height of bounding box
+	- Try morphing between points - match resample count
+
+
+NICE TO HAVE:
+- Try to take legs into account when comparing. Only compare legs when live is not in standing position
+
+
+
+QUESTIONS
+- Are we still having music?
+- Landscape???
 
 */
 
@@ -34,7 +48,9 @@ void ofApp::setup()
 	poseManager.setup();
 	ofAddListener(poseManager.poseRecognisedEvent, this, &ofApp::poseRecognised);
 	sceneManager.setup();
-	gui.setup();
+	int danceSequenceSize = sceneManager.getSequenceSize();
+	cout << danceSequenceSize << endl;
+	gui.setup(danceSequenceSize, poseManager.getPoseImages());
 	
 	soundStream.setup(this, 0, 2, 44100, 256, 4);
 	frameAtLastSoundEvent = 0;
@@ -128,12 +144,15 @@ void ofApp::keyPressed(int key)
 	}
 	if (key == 's')
 	{
-		//recordNewPose();
 		isNewPoseHack = true;
 	}
 	if (key == 'S')
 	{
 		poseManager.savePose();
+	}
+	if (key == 'd')
+	{
+		isDebugVisible = !isDebugVisible;
 	}
 	if (key == '0')
 		sceneManager.playVideo(0);
