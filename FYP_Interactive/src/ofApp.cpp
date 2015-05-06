@@ -1,39 +1,38 @@
 #include "ofApp.h"
 
 /*
-TODO: 
-
-Having trouble with shader - Sampler2DRect, extension etc. Check output.
-
+TODO:
 
 - Graphical silhouettes:
-	- set up shader to blur the images - this should reduce noise and combine separate blobs
-	- Add Resample stuff to gui.
+	- Add colour sliders - uniform across both
 	- Play
 		- Motion reduces resample count
 		
 - Transition
 	- Match x, y and height of bounding box
 	- Try morphing between points - match resample count
+		- working with multiple 
 	- Try morphing back after only if a user is in place. Otherwise fade out.
 
 - Display poses to audience:
 	- When user first enters, show a few random stances. Continue every 10 seconds until one is recognised.
 	- Add copy above - "Unlock your avatar"
 	- Add copy below - "Enact a pose"
-
 	
 - Audio
 	- Each time a sequence is started, select a random part of the sound file and fade in/out
 
-- Limit the interaction to a single person standing in a specific zone
-
-- Test on projector
-
-
-
+- MISC
+	- Limit the interaction to a single person standing in a specific zone
+	- Test on projector
+	- Add button to stop current video.
 
 
+TODAY:
+- Get silhouette working on clipped Kinect image
+- Transition between user and dancer and back again.
+- Add audio - play a random section when each dance is playing
+- Add rough Instructions
 
 NICE TO HAVE:
 
@@ -42,8 +41,8 @@ NICE TO HAVE:
 
 void ofApp::setup()
 {
-	ofSetLogLevel(OF_LOG_VERBOSE);
-	//ofSetLogLevel(OF_LOG_SILENT);
+	//ofSetLogLevel(OF_LOG_VERBOSE);
+	ofSetLogLevel(OF_LOG_SILENT);
 	ofSetWindowShape(1800, 1000);
 	ofSetFrameRate(30);
 	ofSetBackgroundAuto(false);
@@ -107,11 +106,11 @@ void ofApp::draw()
 		debugStr += "Num Skeletons" + ofToString(kinectManager.getSkeletonData().size()) + "\n"; 
 		debugStr += "\n"; 
 		debugStr += "----AUDIO----\n"; 
-		debugStr += "smoothed amplitude = " + ofToString(smoothAmplitude) + "\n"; 
+		debugStr += "Smooth amplitude = " + ofToString(float((int)(smoothAmplitude * 100)) / 100.0) + "\n"; 
 
 		ofPushStyle();
 		ofSetColor(255);
-		ofDrawBitmapString(debugStr, 640 * 0.5 + 10, 600);
+		ofDrawBitmapString(debugStr, ofGetWidth() - 200, ofGetHeight() - 180);
 		ofPopStyle();
 	}
 }

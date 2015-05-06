@@ -41,7 +41,7 @@ void KinectManager::draw()
 	if (isDrawSkeletons)
 	{
 		ofPushMatrix();
-		ofScale(4, 4);
+		ofScale(1, 1);
 		drawSkeletons();
 		ofPopMatrix();
 	}

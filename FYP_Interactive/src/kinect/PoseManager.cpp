@@ -115,14 +115,14 @@ void PoseManager::draw()
 			ofDrawBitmapString("Recently tracked", 10, 20);
 			ofPopMatrix();
 
-			ofPushMatrix();
-			ofTranslate(ofGetWidth() - fboW, fboH * 2);
-			recordedPose.fbo.draw(0, 0);
-			ofSetColor(255, 40);
-			ofRect(0,  (-fboH * recordedPose.confidence) + fboH, fboW, fboH * recordedPose.confidence);
-			ofSetColor(255);
-			ofDrawBitmapString("Recorded Pose\n" + ofToString(recordedPose.confidence), 10, 20);
-			ofPopMatrix();
+			//ofPushMatrix();
+			//ofTranslate(ofGetWidth() - fboW, fboH * 2);
+			//recordedPose.fbo.draw(0, 0);
+			//ofSetColor(255, 40);
+			//ofRect(0,  (-fboH * recordedPose.confidence) + fboH, fboW, fboH * recordedPose.confidence);
+			//ofSetColor(255);
+			//ofDrawBitmapString("Recorded Pose\n" + ofToString(recordedPose.confidence), 10, 20);
+			//ofPopMatrix();
 		}
 	}
 	

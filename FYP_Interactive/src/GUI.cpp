@@ -100,6 +100,16 @@ void GUI::addSilhouetteGUI()
 	gui->add2DPad("D POSITION", ofPoint(0, 1), ofPoint(0, 1), &app->sceneManager.dancerSilhouette.position, length, length * 0.6);;
 	gui->addSlider("D SCALE", 0.1, 10, &app->sceneManager.dancerSilhouette.scale, length, dim);
 	
+	gui->addSpacer(length, 1);
+    gui->addLabel("USER");
+	gui->addSlider("U IMAGE CONTOUR THRESHOLD", 0, 255, &app->sceneManager.userSilhouette.imageContourThreshold, length, dim);
+	gui->addSlider("U IMAGE BLUR AMOUNT", 0, 20, &app->sceneManager.userBlurAmount, length, dim);
+	gui->addSlider("U IMAGE BLUR SAMPLES", 0, 20, &app->sceneManager.userBlurSamples, length, dim);
+	gui->addSlider("U CONTOUR RESAMPLE COUNT", 3, 200, &app->sceneManager.userSilhouette.resampleAmount, length, dim);
+	gui->add2DPad("U POSITION", ofPoint(0, 1), ofPoint(0, 1), &app->sceneManager.userSilhouette.position, length, length * 0.6);;
+	gui->addSlider("U SCALE", 0.1, 10, &app->sceneManager.userSilhouette.scale, length, dim);
+
+
     finaliseCanvas(gui);
 }
 
@@ -153,14 +163,19 @@ void GUI::addDebugGUI()
 	gui->addToggle("DRAW CLIPPED DEPTH", &app->sceneManager.isDrawClippedDepth, toggleSize, toggleSize);
 	gui->addToggle("DRAW LARGE CLIPPED DEPTH", &app->sceneManager.isDrawLargeClippedDepth, toggleSize, toggleSize);
 	gui->addSlider("LARGE CLIPPED DEPTH SCALE", 1.0, 3.0, &app->sceneManager.largeClippingScale, length, dim);
-
-
 	
+	gui->addSpacer(length, 1);
+    gui->addLabel("SILHOUETTE");
+	gui->addToggle("DANCER SILHOUETTE VISIBLE", &app->sceneManager.isDancerSilhouetteDebugVisible, toggleSize, toggleSize);
+	gui->addToggle("USER SILHOUETTE VISIBLE", &app->sceneManager.isUserSilhouetteDebugVisible, toggleSize, toggleSize);
+	gui->addSlider("SILHOUETTE PREVIEW SCALE", 0.1, 1.0, &app->sceneManager.vidScale, length, dim);
+
 	gui->addSpacer(length, 1);
     gui->addLabel("SKELETAL");
 	gui->addToggle("DRAW LIVE SKEL DATA", &app->poseManager.isLiveSkelelDataVisible, toggleSize, toggleSize);
 	gui->addToggle("DRAW LOADED SKEL DATA", &app->poseManager.isLoadedSkelelDataVisible, toggleSize, toggleSize);
 	gui->addSlider("SKEL PREVIEW SCALE", 0.1, 1.0, &app->poseManager.loadedPreviewScale, length, dim);
+
 	finaliseCanvas(gui);
 }
 

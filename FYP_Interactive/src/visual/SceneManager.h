@@ -43,13 +43,22 @@ public:
 	bool isPlayingSequence;
 	int srcW;
 	int srcH;
+
+	
+	ofFbo userFbo[2];
+	int currentUserFbo;
+	ofImage userImg;
 	
 	ofShader blurShaderH;
 	ofShader blurShaderV;
 	float dancerBlurAmount;
 	float dancerBlurSamples;
-
-
+	float userBlurAmount;
+	float userBlurSamples;
+	
+	float vidScale;
+	bool isDancerSilhouetteDebugVisible;
+	bool isUserSilhouetteDebugVisible;
 
 	bool isClipping;
 

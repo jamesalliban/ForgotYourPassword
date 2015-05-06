@@ -1,31 +1,62 @@
 <Widget>
     <Kind>4</Kind>
     <Name>D IMAGE CONTOUR THRESHOLD</Name>
-    <Value>55.175437927</Value>
+    <Value>44.736843109</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>D IMAGE BLUR AMOUNT</Name>
-    <Value>0.350877196</Value>
+    <Value>0.584795356</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>D IMAGE BLUR SAMPLES</Name>
-    <Value>12.748538017</Value>
+    <Value>12.807017326</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>D CONTOUR RESAMPLE COUNT</Name>
-    <Value>112.444450378</Value>
+    <Value>190.783645630</Value>
 </Widget>
 <Widget>
     <Kind>11</Kind>
     <Name>D POSITION</Name>
-    <XValue>0.497076035</XValue>
-    <YValue>0.433723211</YValue>
+    <XValue>0.479532152</XValue>
+    <YValue>0.428849906</YValue>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>D SCALE</Name>
-    <Value>2.502631664</Value>
+    <Value>2.473684072</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>U IMAGE CONTOUR THRESHOLD</Name>
+    <Value>51.447368622</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>U IMAGE BLUR AMOUNT</Name>
+    <Value>0.760233939</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>U IMAGE BLUR SAMPLES</Name>
+    <Value>14.912281036</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>U CONTOUR RESAMPLE COUNT</Name>
+    <Value>175.807022095</Value>
+</Widget>
+<Widget>
+    <Kind>11</Kind>
+    <Name>U POSITION</Name>
+    <XValue>0.812865496</XValue>
+    <YValue>0.505847931</YValue>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>U SCALE</Name>
+    <Value>2.242105246</Value>
 </Widget>
