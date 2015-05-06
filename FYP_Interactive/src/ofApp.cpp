@@ -150,6 +150,10 @@ void ofApp::keyPressed(int key)
 		//poseManager.savePose();
 		isNewPoseHack = true;
 	}
+	if (key == 's')
+	{
+		sceneManager.stopVideo();
+	}
 	if (key == 'd')
 	{
 		isDebugVisible = !isDebugVisible;

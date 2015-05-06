@@ -149,7 +149,12 @@ void PoseManager::draw()
 				ofTranslate(ofGetWidth() - fboW - (fbosPerRow * fboW * loadedPreviewScale), 0);
 			ofScale(loadedPreviewScale, loadedPreviewScale);
 			pose->fbo.draw(0, 0);
-			ofSetColor(255, 40);
+			
+			if (pose->confidence < confidenceMaxThreshold)
+				ofSetColor(255, 40);
+			else
+				ofSetColor(255, ofMap(pose->framesAtConfidenceLevel, 0, maxFramesForConfTrigger, 80, 160));
+
 			ofRect(0,  (-fboH * pose->confidence) + fboH, fboW, fboH * pose->confidence);
 			ofSetColor(255);
 			ofDrawBitmapString("Pose " + ofToString(i) + "\n" + ofToString(pose->confidence), 10, 20);

@@ -22,6 +22,7 @@ public:
 	void loadShaders();
 	void toggleRecording();
 	void playVideo(int sequenceID);
+	void stopVideo();
 	int getSequenceSize();
 	void exit();
 

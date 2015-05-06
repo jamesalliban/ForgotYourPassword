@@ -305,6 +305,15 @@ void SceneManager::playVideo(int sequenceID)
 }
 
 
+void SceneManager::stopVideo()
+{	
+	player.stop();
+	isPlayingSequence = false;
+	isUserVisible = true;
+	isDancerVisible = false;
+}
+
+
 int SceneManager::getSequenceSize()
 {
 	ofDirectory dir;
