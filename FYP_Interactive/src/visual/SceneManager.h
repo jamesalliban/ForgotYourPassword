@@ -59,6 +59,8 @@ public:
 	float vidScale;
 	bool isDancerSilhouetteDebugVisible;
 	bool isUserSilhouetteDebugVisible;
+	bool isDancerVisible;
+	bool isUserVisible;
 
 	bool isClipping;
 

@@ -29,7 +29,6 @@ TODO:
 
 
 TODAY:
-- Get silhouette working on clipped Kinect image
 - Transition between user and dancer and back again.
 - Add audio - play a random section when each dance is playing
 - Add rough Instructions

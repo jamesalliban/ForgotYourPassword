@@ -30,10 +30,14 @@ void SceneManager::update(Depth & depth)
 	if (player.isLoaded() && isPlayingSequence)
 	{
 		player.update();
+
+		// check to see if the video has completed
 		if (player.getCurrentFrame() == player.getTotalNumFrames() - 1)
 		{
 			player.stop();
 			isPlayingSequence = false;
+			isUserVisible = true;
+			isDancerVisible = false;
 		}
 		
 		// blur the video horizontally
@@ -145,10 +149,12 @@ void SceneManager::draw(Depth & depth)
 {
 	if (player.isLoaded() && isPlayingSequence)
 	{
-		dancerSilhouette.draw();
-
-		userSilhouette.draw();
+		if (isDancerVisible)
+			dancerSilhouette.draw();
 	}
+
+	if (isUserVisible)
+		userSilhouette.draw();
 }
 
 
@@ -292,6 +298,9 @@ void SceneManager::playVideo(int sequenceID)
 		cout << "playVideo " << "movies/FYP_Sequence_" + sId + ".mov" << endl;
 
 		isPlayingSequence = true;
+
+		isUserVisible = false;
+		isDancerVisible = true;
 	}
 }
 
