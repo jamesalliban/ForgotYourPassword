@@ -2,54 +2,59 @@
 
 /*
 TODO: 
-- Unlock dance sequences with poses:
-	- Link poses to dance sequences.
-	- Limit the interaction to people standing in a specifit zone
-- Test on projector
+
+Having trouble with shader - Sampler2DRect, extension etc. Check output.
+
+
 - Graphical silhouettes:
 	- set up shader to blur the images - this should reduce noise and combine separate blobs
 	- Add Resample stuff to gui.
 	- Play
 		- Motion reduces resample count
-- Sort out dance videos
-    - Batch convert all images to proper tiffs using FastStone - - IS THIS STILL REQUIRED?????
-	- Create hap videos in Premiere.
-
-- Only track a single person in a specific location/zone.
-- After a 30 seconds no recognised stance, show a few random stances. Continue every 10 seconds until one is recognised
-
+		
 - Transition
 	- Match x, y and height of bounding box
 	- Try morphing between points - match resample count
+	- Try morphing back after only if a user is in place. Otherwise fade out.
+
+- Display poses to audience:
+	- When user first enters, show a few random stances. Continue every 10 seconds until one is recognised.
+	- Add copy above - "Unlock your avatar"
+	- Add copy below - "Enact a pose"
+
+	
+- Audio
+	- Each time a sequence is started, select a random part of the sound file and fade in/out
+
+- Limit the interaction to a single person standing in a specific zone
+
+- Test on projector
+
+
+
+
 
 
 NICE TO HAVE:
-- Try to take legs into account when comparing. Only compare legs when live is not in standing position
-
-
-
-QUESTIONS
-- Are we still having music?
-- Landscape???
 
 */
 
 
 void ofApp::setup()
 {
-	//ofSetLogLevel(OF_LOG_VERBOSE);
-	ofSetLogLevel(OF_LOG_SILENT);
+	ofSetLogLevel(OF_LOG_VERBOSE);
+	//ofSetLogLevel(OF_LOG_SILENT);
 	ofSetWindowShape(1800, 1000);
 	ofSetFrameRate(30);
 	ofSetBackgroundAuto(false);
 	ofSetFullscreen(true);
+    ofDisableArbTex();
 
 	kinectManager.setup();
 	poseManager.setup();
 	ofAddListener(poseManager.poseRecognisedEvent, this, &ofApp::poseRecognised);
 	sceneManager.setup();
 	int danceSequenceSize = sceneManager.getSequenceSize();
-	cout << danceSequenceSize << endl;
 	gui.setup(danceSequenceSize, poseManager.getPoseImages());
 	
 	soundStream.setup(this, 0, 2, 44100, 256, 4);
@@ -106,7 +111,7 @@ void ofApp::draw()
 
 		ofPushStyle();
 		ofSetColor(255);
-		ofDrawBitmapString(debugStr, 640 * 0.5, 20);
+		ofDrawBitmapString(debugStr, 640 * 0.5 + 10, 600);
 		ofPopStyle();
 	}
 }
@@ -142,13 +147,10 @@ void ofApp::keyPressed(int key)
 	{
 		ofToggleFullscreen();
 	}
-	if (key == 's')
-	{
-		isNewPoseHack = true;
-	}
 	if (key == 'S')
 	{
-		poseManager.savePose();
+		//poseManager.savePose();
+		isNewPoseHack = true;
 	}
 	if (key == 'd')
 	{

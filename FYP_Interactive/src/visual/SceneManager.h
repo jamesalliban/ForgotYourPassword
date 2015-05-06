@@ -37,9 +37,18 @@ public:
 	ofPixels pix;
 
     ofxHapPlayer player;
-	ofFbo videoFbo;
+	ofFbo videoFbo[2];
+	int currentVidFbo;
 	ofImage videoImg;
 	bool isPlayingSequence;
+	int srcW;
+	int srcH;
+	
+	ofShader blurShaderH;
+	ofShader blurShaderV;
+	float dancerBlurAmount;
+	float dancerBlurSamples;
+
 
 
 	bool isClipping;

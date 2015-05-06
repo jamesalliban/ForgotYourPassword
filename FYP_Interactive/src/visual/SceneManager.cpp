@@ -2,8 +2,13 @@
 
 void SceneManager::setup()
 {
-	depthFbo.allocate(512, 424);
-	videoFbo.allocate(512, 424);
+	srcW = 512;
+	srcH = 424;
+	depthFbo.allocate(srcW, srcH);
+
+	videoFbo[0].allocate(srcW, srcH);
+	videoFbo[1].allocate(srcW, srcH);
+	currentVidFbo = 0;
 	
 	screenRecorder.setup();
 	screenRecorder.setImageFormat("tiff");
@@ -11,8 +16,9 @@ void SceneManager::setup()
 
 	isPlayingSequence = false;
 	
-	userSilhouette.setup();
-	dancerSilhouette.setup();	
+	userSilhouette.setup(srcW, srcH);
+	dancerSilhouette.setup(srcW, srcH);	
+	
 }
 
 void SceneManager::update(Depth & depth)
@@ -25,14 +31,32 @@ void SceneManager::update(Depth & depth)
 			player.stop();
 			isPlayingSequence = false;
 		}
-
-		videoFbo.begin();
-		ofClear(1.0, 1.0, 1.0, 1.0);
+		
+		currentVidFbo = 1 - currentVidFbo;
+		videoFbo[currentVidFbo].begin();
+		//ofClear(0.0, 0.0, 0.0, 1.0);
+		blurShaderH.begin();
+		blurShaderH.setUniform1f("blurAmount", dancerBlurAmount);
+		blurShaderH.setUniform1i("numSamples", dancerBlurSamples);
+		blurShaderH.setUniform2f("resolution", videoFbo[currentVidFbo].getWidth(), videoFbo[currentVidFbo].getHeight());
 		player.draw(0,0);
-		videoFbo.end();
+		blurShaderH.end();
+		videoFbo[currentVidFbo].end();
+		
+		currentVidFbo = 1 - currentVidFbo;
+		videoFbo[currentVidFbo].begin();
+		//ofClear(0.0, 0.0, 0.0, 1.0);
+		blurShaderV.begin();
+		blurShaderV.setUniform1f("blurAmount", dancerBlurAmount);
+		blurShaderV.setUniform1i("numSamples", dancerBlurSamples);
+		blurShaderV.setUniform2f("resolution", videoFbo[currentVidFbo].getWidth(), videoFbo[currentVidFbo].getHeight());
+		videoFbo[1 - currentVidFbo].draw(0,0);
+		blurShaderV.end();
+		videoFbo[currentVidFbo].end();
+		
 
 		ofPixels pix;
-		videoFbo.readToPixels(pix);
+		videoFbo[currentVidFbo].readToPixels(pix);
 		videoImg.setFromPixels(pix);
 		dancerSilhouette.update(videoImg);
 	}
@@ -43,7 +67,7 @@ void SceneManager::update(Depth & depth)
 		depthFbo.begin();
 		depthShader.begin();
 		depthShader.setUniform1i("isClipping", (isClipping) ? 1 : 0);
-		depthShader.setUniform2f("resolution", 512, 424);
+		depthShader.setUniform2f("resolution", srcW, srcH);
 		depthShader.setUniform1f("nearClip", liveNearClip);
 		depthShader.setUniform1f("farClip", liveFarClip);
 		depthShader.setUniform1f("nearFloorClip", liveNearFloorClip);
@@ -54,7 +78,7 @@ void SceneManager::update(Depth & depth)
 		depthShader.setUniform1f("farLeftClip", liveFarLeftClip);
 		depthShader.setUniform1f("nearRightClip", liveNearRightClip);
 		depthShader.setUniform1f("farRightClip", liveFarRightClip);
-		depth.draw(0, 0, 512, 424);
+		depth.draw(0, 0, srcW, srcH);
 		depthShader.end();
 		depthFbo.end();
 	}
@@ -63,7 +87,7 @@ void SceneManager::update(Depth & depth)
 		depthFbo.begin();
 		depthShader.begin();
 		depthShader.setUniform1i("isClipping", (isClipping) ? 1 : 0);
-		depthShader.setUniform2f("resolution", 512, 424);
+		depthShader.setUniform2f("resolution", srcW, srcH);
 		depthShader.setUniform1f("nearClip", recNearClip);
 		depthShader.setUniform1f("farClip", recFarClip);
 		depthShader.setUniform1f("nearFloorClip", recNearFloorClip);
@@ -74,7 +98,7 @@ void SceneManager::update(Depth & depth)
 		depthShader.setUniform1f("farLeftClip", recFarLeftClip);
 		depthShader.setUniform1f("nearRightClip", recNearRightClip);
 		depthShader.setUniform1f("farRightClip", recFarRightClip);
-		depth.draw(0, 0, 512, 424);
+		depth.draw(0, 0, srcW, srcH);
 		depthShader.end();
 		depthFbo.end();
 	}
@@ -85,11 +109,7 @@ void SceneManager::draw(Depth & depth)
 {
 	if (player.isLoaded() && isPlayingSequence)
 	{
-		ofPushMatrix();
-		ofTranslate(400, 200);
-		ofScale(2, 2);
 		dancerSilhouette.draw();
-		ofPopMatrix();
 	}
 }
 
@@ -98,17 +118,37 @@ void SceneManager::drawDebug(Depth & depth)
 {
 	if (player.isLoaded() && isPlayingSequence)
     {
-		videoImg.draw(512, ofGetHeight() - player.getHeight());
-
+		float vidScale = 0.5;
+		
         // Draw the video frame
         ofSetColor(255, 255, 255);
-		player.draw(0, ofGetHeight() - player.getHeight());
+		ofPushMatrix();
+		ofTranslate(0, ofGetHeight() - player.getHeight() * vidScale);
+		ofScale(vidScale, vidScale);
+		player.draw(0, 0);
+		ofPopMatrix();
+
+		// draw first blur
+		ofPushMatrix();
+		ofTranslate(srcW * vidScale, ofGetHeight() - player.getHeight() * vidScale);
+		ofScale(vidScale, vidScale);
+		videoFbo[1 - currentVidFbo].draw(0, 0);
+		ofPopMatrix();
+
+		// draw second blur
+		ofPushMatrix();
+		ofTranslate(srcW * 2 * vidScale, ofGetHeight() - player.getHeight() * vidScale);
+		ofScale(vidScale, vidScale);
+		videoFbo[currentVidFbo].draw(0, 0);
+		ofPopMatrix();
 
 		if (player.getCurrentFrame() == player.getTotalNumFrames())
 			isPlayingSequence = false;
 
+		// draw contour
 		ofPushMatrix();
-		ofTranslate(512, ofGetHeight() - player.getHeight());
+		ofTranslate(srcW * 3 * vidScale, ofGetHeight() - player.getHeight() * vidScale);
+		ofScale(vidScale, vidScale);
 		dancerSilhouette.drawContour();
 		ofPopMatrix();
     }
@@ -117,7 +157,7 @@ void SceneManager::drawDebug(Depth & depth)
 		drawDepth(depth, 0, 480 * 0.5);
 
 	if (isDrawClippedDepth)
-		drawClippedDepth(0, 480 * 0.5 + 424 * 0.6);
+		drawClippedDepth(0, 480 * 0.5 + srcH * 0.6);
 	
 	if (isDrawLargeClippedDepth)
 	{
@@ -163,6 +203,8 @@ void SceneManager::drawClippedDepth(int x, int y)
 void SceneManager::loadShaders()
 {
 	depthShader.load("shaders/DepthShader");
+	blurShaderH.load("shaders/BlurShaderH");
+	blurShaderV.load("shaders/BlurShaderV");
 }
 
 

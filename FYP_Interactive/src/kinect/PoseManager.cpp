@@ -128,7 +128,7 @@ void PoseManager::draw()
 	
 	if (isLoadedSkelelDataVisible)
 	{
-		int maxRowSize = 1400;
+		int maxRowSize = 900;
 		int n = loadedPoses.size();
 		for (int i = 0; i < n; i++)
 		{

@@ -94,6 +94,11 @@ void GUI::addSilhouetteGUI()
 	
     gui->addLabel("DANCER");
 	gui->addSlider("D IMAGE CONTOUR THRESHOLD", 0, 255, &app->sceneManager.dancerSilhouette.imageContourThreshold, length, dim);
+	gui->addSlider("D IMAGE BLUR AMOUNT", 0, 20, &app->sceneManager.dancerBlurAmount, length, dim);
+	gui->addSlider("D IMAGE BLUR SAMPLES", 0, 20, &app->sceneManager.dancerBlurSamples, length, dim);
+	gui->addSlider("D CONTOUR RESAMPLE COUNT", 3, 200, &app->sceneManager.dancerSilhouette.resampleAmount, length, dim);
+	gui->add2DPad("D POSITION", ofPoint(0, 1), ofPoint(0, 1), &app->sceneManager.dancerSilhouette.position, length, length * 0.6);;
+	gui->addSlider("D SCALE", 0.1, 10, &app->sceneManager.dancerSilhouette.scale, length, dim);
 	
     finaliseCanvas(gui);
 }

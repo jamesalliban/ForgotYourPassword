@@ -1,7 +1,9 @@
+//#version 140
+#extension GL_ARB_texture_rectangle : enable
 
 uniform int isClipping;
 uniform vec2 resolution;
-uniform sampler2DRect tex0;
+uniform sampler2D tex0;
 uniform float farClip;
 uniform float nearClip;
 uniform float nearFloorClip;
@@ -41,12 +43,12 @@ float rand(vec2 n)
 
 void main(void) 
 {
-	vec4 baseColor = texture2DRect( tex0, gl_TexCoord[0].st );
+	vec4 baseColor = texture2D( tex0, gl_TexCoord[0].st );
 	
 	vec4 col = baseColor;
 	col.rgb *= 10.0;
 	
-	vec2 normPos = gl_TexCoord[0].st / resolution;
+	vec2 normPos = gl_TexCoord[0].st;// / resolution;
 	
 	float grey = (col.r + col.g + col.b) / 3.0;
 	float z = grey;
@@ -79,11 +81,10 @@ void main(void)
 			if (normPos.x > right)
 				z = 0.0;
 		}
-	}		
-	
-	
+	}	
 	
 	col.rgb = vec3(z, z, z);
+	
 	
 	gl_FragColor = col;
 }

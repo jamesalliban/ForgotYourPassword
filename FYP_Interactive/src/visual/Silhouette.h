@@ -8,12 +8,16 @@ using namespace ofxCv;
 class Silhouette
 {
 public:
-	void setup();
+	void setup(int _srcW, int _srcH);
 	void update(ofImage & img);
 	void draw();
 	void drawContour();
 
 	ContourFinder contourFinder;
 	float imageContourThreshold;
-
+	float resampleAmount;
+	int srcW;
+	int srcH;
+	ofPoint position;
+	float scale;
 };
