@@ -70,8 +70,8 @@ void ofApp::update()
 	{
 		kinectManager.update();
 		poseManager.update(kinectManager.getSkeletonData());
-		sceneManager.update(*kinectManager.kinect.getDepthSource());
 	}
+	sceneManager.update(*kinectManager.kinect.getDepthSource(), isPaused);
 
 	if (isNewPoseHack)
 	{
@@ -84,11 +84,7 @@ void ofApp::update()
 
 void ofApp::draw()
 {
-	ofPushStyle();
-	ofSetColor(40);
-	ofRect(0, 0, ofGetWidth(), ofGetHeight());
-	ofPopStyle();
-	//this->kinect.getLongExposureInfraredSource()->draw(0,0,640, 480);
+	sceneManager.drawBackground();
 
 	if (isDebugVisible)
 		kinectManager.draw();
@@ -158,9 +154,21 @@ void ofApp::keyPressed(int key)
 	{
 		sceneManager.stopVideo();
 	}
+	if (key == 't')
+	{
+		poseManager.isTracking = !poseManager.isTracking;
+	}
 	if (key == 'd')
 	{
 		isDebugVisible = !isDebugVisible;
+	}
+	if (key == OF_KEY_LEFT)
+	{
+		sceneManager.scrubVideo(-30);
+	}
+	if (key == OF_KEY_RIGHT)
+	{
+		sceneManager.scrubVideo(30);
 	}
 	if (key == '0')
 		sceneManager.playVideo(0);

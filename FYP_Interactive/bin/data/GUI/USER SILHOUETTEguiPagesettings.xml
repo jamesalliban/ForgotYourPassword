@@ -1,0 +1,61 @@
+<Widget>
+    <Kind>4</Kind>
+    <Name>IMAGE CONTOUR THRESHOLD</Name>
+    <Value>48.464912415</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>IMAGE BLUR AMOUNT</Name>
+    <Value>0.701754391</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>IMAGE BLUR SAMPLES</Name>
+    <Value>8.245614052</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>CV THRESHOLD</Name>
+    <Value>50.017543793</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MIN CONTOUR AREA</Name>
+    <Value>98.172515869</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MAX CONTOUR AREA</Name>
+    <Value>47661.343750000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>CONTOUR AMOUNT CONSIDERED</Name>
+    <Value>16.710525513</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>CONTOUR FIND HOLES</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>CONTOUR USE APPROXIMATION</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>CONTOUR RESAMPLE COUNT</Name>
+    <Value>167.166656494</Value>
+</Widget>
+<Widget>
+    <Kind>11</Kind>
+    <Name>POSITION</Name>
+    <XValue>0.555555582</XValue>
+    <YValue>0.550682247</YValue>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>SCALE</Name>
+    <Value>2.242105246</Value>
+</Widget>

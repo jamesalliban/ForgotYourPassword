@@ -13,11 +13,13 @@ public:
     void addVariousGUI();
 	void addDepthBoundsGUI();
 	void addTrackingGUI();
-	void addSilhouetteGUI();
+	void addUniversalSilhouetteGUI();
+	void addDancerSilhouetteGUI();
+	void addUserSilhouetteGUI();
 	void addSequenceSelectorGUI(int sequenceSize, vector<ofImage> skelImages);
 	void addRecordingGUI();
     void addDebugGUI();
-    //void addBackgroundGUI();
+    void addBackgroundGUI();
     
     void debugGUIEvent(ofxUIEventArgs &e);
     void sequenceSelectorGUIEvent(ofxUIEventArgs &e);

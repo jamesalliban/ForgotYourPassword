@@ -66,4 +66,5 @@ public:
 	ofEvent<Pose> poseRecognisedEvent;
 
 	bool hasRecordingBeenTaken;
+	bool isTracking;
 };

@@ -9,11 +9,13 @@ void GUI::setup(int sequenceSize, vector<ofImage> skelImages)
     addVariousGUI();
     addDepthBoundsGUI();
     addTrackingGUI();
-	addSilhouetteGUI();
+	addUniversalSilhouetteGUI();
+	addDancerSilhouetteGUI();
+	addUserSilhouetteGUI();
 	addSequenceSelectorGUI(sequenceSize, skelImages);
     addRecordingGUI();
     addDebugGUI();
-    //addBackgroundGUI();
+    addBackgroundGUI();
     addGUIDesignGUI();
     
     setGUIColour();
@@ -31,6 +33,7 @@ void GUI::addVariousGUI()
     gui->addLabel("']' - NEXT GUI", OFX_UI_FONT_SMALL);
     gui->addLabel("'p' - TOGGLE PAUSE", OFX_UI_FONT_SMALL);
     gui->addLabel("'f' - TOGGLE FULLSCREEN", OFX_UI_FONT_SMALL);
+    gui->addLabel("'t' - TOGGLE TRACKING", OFX_UI_FONT_SMALL);
     gui->addLabel("'l' - LOAD SHADERS", OFX_UI_FONT_SMALL);
     gui->addLabel("'d' - TOGGLE DEBUG VISIBLE", OFX_UI_FONT_SMALL);
 
@@ -39,6 +42,8 @@ void GUI::addVariousGUI()
 	
     gui->addLabel("'0-9' - PLAY VIDEO", OFX_UI_FONT_SMALL);
     gui->addLabel("'s' - STOP CURRENT VIDEO", OFX_UI_FONT_SMALL);
+    gui->addLabel("'LEFT' - SCRUB VIDEO BACK 1 SECOND", OFX_UI_FONT_SMALL);
+    gui->addLabel("'RIGHT' - SCRUB VIDEO FORWARD 1 SECOND", OFX_UI_FONT_SMALL);
 
 	//ofAddListener(gui->newGUIEvent, this, &GUI::variousGUIEvent);
     
@@ -90,6 +95,7 @@ void GUI::addTrackingGUI()
 {
     ofxUICanvas* gui = getNewGUI("TRACKING");
 	
+	gui->addToggle("TOGGLE TRACKING", &app->poseManager.isTracking, toggleSize, toggleSize);
 	gui->addSlider("CONFIDENCE MAX THRESHOLD", 0.5, 0.99, &app->poseManager.confidenceMaxThreshold, length, dim);
 	gui->addSlider("CONFIDENCE EXPO", 1.0, 5.0, &app->poseManager.confidenceExpo, length, dim);
     gui->addSlider("MAX FRAMES FOR CONF TRIGGER", 5, 60, &app->poseManager.maxFramesForConfTrigger, length, dim);
@@ -98,27 +104,71 @@ void GUI::addTrackingGUI()
 }
 
 
-void GUI::addSilhouetteGUI()
+void GUI::addUniversalSilhouetteGUI()
 {
-    ofxUICanvas* gui = getNewGUI("SILHOUETTE");
+    ofxUICanvas* gui = getNewGUI("UNIVERSAL SILHOUETTE");
+	
+	gui->addLabel("COLOUR");
+	gui->addSlider("RED", 0, 255, &app->sceneManager.silhouetteCol[0], length, dim);
+	gui->addSlider("GREEN", 0, 255, &app->sceneManager.silhouetteCol[1], length, dim);
+	gui->addSlider("BLUE", 0, 255, &app->sceneManager.silhouetteCol[2], length, dim);
+
+
+    finaliseCanvas(gui);
+}
+
+
+void GUI::addDancerSilhouetteGUI()
+{
+    ofxUICanvas* gui = getNewGUI("DANCER SILHOUETTE");
 	
     gui->addLabel("DANCER");
-	gui->addSlider("D IMAGE CONTOUR THRESHOLD", 0, 255, &app->sceneManager.dancerSilhouette.imageContourThreshold, length, dim);
-	gui->addSlider("D IMAGE BLUR AMOUNT", 0, 20, &app->sceneManager.dancerBlurAmount, length, dim);
-	gui->addSlider("D IMAGE BLUR SAMPLES", 0, 20, &app->sceneManager.dancerBlurSamples, length, dim);
-	gui->addSlider("D CONTOUR RESAMPLE COUNT", 3, 200, &app->sceneManager.dancerSilhouette.resampleAmount, length, dim);
-	gui->add2DPad("D POSITION", ofPoint(0, 1), ofPoint(0, 1), &app->sceneManager.dancerSilhouette.position, length, length * 0.6);;
-	gui->addSlider("D SCALE", 0.1, 10, &app->sceneManager.dancerSilhouette.scale, length, dim);
+	gui->addSlider("IMAGE CONTOUR THRESHOLD", 0, 255, &app->sceneManager.dancerSilhouette.imageContourThreshold, length, dim);
+	gui->addSlider("IMAGE BLUR AMOUNT", 0, 20, &app->sceneManager.dancerBlurAmount, length, dim);
+	gui->addSlider("IMAGE BLUR SAMPLES", 0, 20, &app->sceneManager.dancerBlurSamples, length, dim);
 	
 	gui->addSpacer(length, 1);
-    gui->addLabel("USER");
-	gui->addSlider("U IMAGE CONTOUR THRESHOLD", 0, 255, &app->sceneManager.userSilhouette.imageContourThreshold, length, dim);
-	gui->addSlider("U IMAGE BLUR AMOUNT", 0, 20, &app->sceneManager.userBlurAmount, length, dim);
-	gui->addSlider("U IMAGE BLUR SAMPLES", 0, 20, &app->sceneManager.userBlurSamples, length, dim);
-	gui->addSlider("U CONTOUR RESAMPLE COUNT", 3, 200, &app->sceneManager.userSilhouette.resampleAmount, length, dim);
-	gui->add2DPad("U POSITION", ofPoint(0, 1), ofPoint(0, 1), &app->sceneManager.userSilhouette.position, length, length * 0.6);;
-	gui->addSlider("U SCALE", 0.1, 10, &app->sceneManager.userSilhouette.scale, length, dim);
+	gui->addSlider("CV THRESHOLD", 1, 255, &app->sceneManager.dancerSilhouette.cvThreshold, length, dim);
+	gui->addSlider("MIN CONTOUR AREA", 1, 200, &app->sceneManager.dancerSilhouette.minContourArea, length, dim);
+	gui->addSlider("MAX CONTOUR AREA", 1, 100000, &app->sceneManager.dancerSilhouette.maxContourArea, length, dim);
+	gui->addSlider("CONTOUR AMOUNT CONSIDERED", 1, 200, &app->sceneManager.dancerSilhouette.contourAmountConsidered, length, dim);
+	gui->addToggle("CONTOUR FIND HOLES", &app->sceneManager.dancerSilhouette.isFindHoles, toggleSize, toggleSize);
+	gui->addToggle("CONTOUR USE APPROXIMATION", &app->sceneManager.dancerSilhouette.isUseApproximation, toggleSize, toggleSize);
 
+	gui->addSpacer(length, 1);
+	gui->addSlider("CONTOUR RESAMPLE COUNT", 3, 200, &app->sceneManager.dancerSilhouette.resampleAmount, length, dim);
+	
+	gui->addSpacer(length, 1);
+	gui->add2DPad("POSITION", ofPoint(0, 1), ofPoint(0, 1), &app->sceneManager.dancerSilhouette.position, length, length * 0.6);;
+	gui->addSlider("SCALE", 0.1, 10, &app->sceneManager.dancerSilhouette.scale, length, dim);
+	
+    finaliseCanvas(gui);
+}
+
+
+void GUI::addUserSilhouetteGUI()
+{
+    ofxUICanvas* gui = getNewGUI("USER SILHOUETTE");
+	
+    gui->addLabel("USER");
+	gui->addSlider("IMAGE CONTOUR THRESHOLD", 0, 255, &app->sceneManager.userSilhouette.imageContourThreshold, length, dim);
+	gui->addSlider("IMAGE BLUR AMOUNT", 0, 20, &app->sceneManager.userBlurAmount, length, dim);
+	gui->addSlider("IMAGE BLUR SAMPLES", 0, 20, &app->sceneManager.userBlurSamples, length, dim);
+	
+	gui->addSpacer(length, 1);
+	gui->addSlider("CV THRESHOLD", 1, 255, &app->sceneManager.userSilhouette.cvThreshold, length, dim);
+	gui->addSlider("MIN CONTOUR AREA", 1, 200, &app->sceneManager.userSilhouette.minContourArea, length, dim);
+	gui->addSlider("MAX CONTOUR AREA", 1, 100000, &app->sceneManager.userSilhouette.maxContourArea, length, dim);
+	gui->addSlider("CONTOUR AMOUNT CONSIDERED", 1, 200, &app->sceneManager.userSilhouette.contourAmountConsidered, length, dim);
+	gui->addToggle("CONTOUR FIND HOLES", &app->sceneManager.userSilhouette.isFindHoles, toggleSize, toggleSize);
+	gui->addToggle("CONTOUR USE APPROXIMATION", &app->sceneManager.userSilhouette.isUseApproximation, toggleSize, toggleSize);
+	
+	gui->addSpacer(length, 1);
+	gui->addSlider("CONTOUR RESAMPLE COUNT", 3, 200, &app->sceneManager.userSilhouette.resampleAmount, length, dim);
+	
+	gui->addSpacer(length, 1);
+	gui->add2DPad("POSITION", ofPoint(0, 1), ofPoint(0, 1), &app->sceneManager.userSilhouette.position, length, length * 0.6);;
+	gui->addSlider("SCALE", 0.1, 10, &app->sceneManager.userSilhouette.scale, length, dim);
 
     finaliseCanvas(gui);
 }
@@ -155,6 +205,19 @@ void GUI::addRecordingGUI()
 	gui->addSlider("MIN AMPLITUDE FOR EVENT", 0.01, 0.2, &app->minAmplitudeForEvent, length, dim);
 	gui->addSlider("FRAMES FOR SOUND EVENT", 2, 30, &app->framesForSoundEvent, length, dim);
     finaliseCanvas(gui);
+}
+
+
+
+void GUI::addBackgroundGUI()
+{
+    ofxUICanvas* gui = getNewGUI("BACKGROUND");
+	
+	gui->addSlider("BG RED", 0, 255, &app->sceneManager.bgCol[0], length, dim);
+	gui->addSlider("BG GREEN", 0, 255, &app->sceneManager.bgCol[1], length, dim);
+	gui->addSlider("BG BLUE", 0, 255, &app->sceneManager.bgCol[2], length, dim);
+	
+	finaliseCanvas(gui);
 }
 
 

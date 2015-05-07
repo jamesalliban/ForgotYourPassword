@@ -13,7 +13,8 @@ class SceneManager
 {
 public:
 	void setup();
-	void update(Depth & depth);
+	void update(Depth & depth, bool isPaused);
+	void drawBackground();
 	void draw(Depth & depth);
 	void drawDebug(Depth & depth);
 	void drawDepth(Depth & depth, int x, int y);
@@ -25,6 +26,7 @@ public:
 	void stopVideo();
 	void pauseVideo();
 	void resumeVideo();
+	void scrubVideo(int offset);
 	int getSequenceSize();
 	void exit();
 
@@ -40,17 +42,21 @@ public:
 	ofPixels pix;
 
     ofxHapPlayer player;
-	ofFbo videoFbo[2];
+
+
+	ofFbo dancerFbo[2];
+	ofFbo userFbo[2];
 	int currentVidFbo;
-	ofImage videoImg;
+	int currentUserFbo;
+	//ofImage dancerImg;
+	//ofImage userImg;
+	ofPixels dancerPix;
+	ofPixels userPix;
+
 	bool isPlayingSequence;
 	int srcW;
 	int srcH;
 
-	
-	ofFbo userFbo[2];
-	int currentUserFbo;
-	ofImage userImg;
 	
 	ofShader blurShaderH;
 	ofShader blurShaderV;
@@ -64,6 +70,10 @@ public:
 	bool isUserSilhouetteDebugVisible;
 	bool isDancerVisible;
 	bool isUserVisible;
+	
+	float bgCol[3];
+	float silhouetteCol[3];
+
 
 	bool isClipping;
 

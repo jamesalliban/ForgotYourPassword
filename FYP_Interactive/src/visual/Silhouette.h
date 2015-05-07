@@ -1,21 +1,40 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxCv.h"
+#include "ofxOpenCv.h"
 
-using namespace ofxCv;
+struct Blob
+{
+	ofPolyline polyline;
+	bool isHole;
+};
 
 class Silhouette
 {
 public:
 	void setup(int _srcW, int _srcH);
-	void update(ofImage & img);
+	void update(ofPixels & pix);
 	void draw();
+	void drawCvGreyImg();
 	void drawContour();
 
-	ContourFinder contourFinder;
+	string type;
+	float * colour[3];
+	float * holeColour[3];
+
+	//ContourFinder contourFinder;
+	ofxCvContourFinder contourFinder;
+	ofxCvColorImage cvColourImg;
+	ofxCvGrayscaleImage cvGreyImg;
+	float cvThreshold;
 	float imageContourThreshold;
 	float resampleAmount;
+	float minContourArea;
+	float maxContourArea;
+	float contourAmountConsidered;
+	bool isFindHoles;
+	bool isUseApproximation;
+
 	int srcW;
 	int srcH;
 	ofPoint position;

@@ -70,14 +70,14 @@ void PoseManager::update(vector<Body> bodies)
 
 	}
 
-	if (hasRecordingBeenTaken)
-		comparePoses(livePose, recordedPose);
-
-	for (int i = 0; i < loadedPoses.size(); i++)
+	if (isTracking)
 	{
-		comparePoses(livePose, loadedPoses[i]);
-	}
+		if (hasRecordingBeenTaken)
+			comparePoses(livePose, recordedPose);
 
+		for (int i = 0; i < loadedPoses.size(); i++)
+			comparePoses(livePose, loadedPoses[i]);
+	}
 
 	if (bodies.size() > 0)
 	{
