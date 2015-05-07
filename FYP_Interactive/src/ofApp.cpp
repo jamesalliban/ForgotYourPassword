@@ -136,6 +136,10 @@ void ofApp::keyPressed(int key)
 	if (key == 'p')
 	{
 		isPaused = !isPaused;
+		if (isPaused)
+			sceneManager.pauseVideo();
+		else
+			sceneManager.resumeVideo();
 	}
 	if (key == 'r')
 	{
@@ -168,6 +172,16 @@ void ofApp::keyPressed(int key)
 		sceneManager.playVideo(3);
 	if (key == '4')
 		sceneManager.playVideo(4);
+	if (key == '5')
+		sceneManager.playVideo(5);
+	if (key == '6')
+		sceneManager.playVideo(6);
+	if (key == '7')
+		sceneManager.playVideo(7);
+	if (key == '8')
+		sceneManager.playVideo(8);
+	if (key == '9')
+		sceneManager.playVideo(9);
 }
 
 

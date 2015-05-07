@@ -29,6 +29,16 @@ void GUI::addVariousGUI()
     gui->addLabel("SPACE - SHOW/HIDE GUI", OFX_UI_FONT_SMALL);
     gui->addLabel("'[' - PREVIOUS GUI", OFX_UI_FONT_SMALL);
     gui->addLabel("']' - NEXT GUI", OFX_UI_FONT_SMALL);
+    gui->addLabel("'p' - TOGGLE PAUSE", OFX_UI_FONT_SMALL);
+    gui->addLabel("'f' - TOGGLE FULLSCREEN", OFX_UI_FONT_SMALL);
+    gui->addLabel("'l' - LOAD SHADERS", OFX_UI_FONT_SMALL);
+    gui->addLabel("'d' - TOGGLE DEBUG VISIBLE", OFX_UI_FONT_SMALL);
+
+    gui->addLabel("'r' - TOGGLE RECORDING", OFX_UI_FONT_SMALL);
+    gui->addLabel("'S' - SAVE NEW POSE TO XML", OFX_UI_FONT_SMALL);
+	
+    gui->addLabel("'0-9' - PLAY VIDEO", OFX_UI_FONT_SMALL);
+    gui->addLabel("'s' - STOP CURRENT VIDEO", OFX_UI_FONT_SMALL);
 
 	//ofAddListener(gui->newGUIEvent, this, &GUI::variousGUIEvent);
     

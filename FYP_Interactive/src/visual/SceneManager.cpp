@@ -314,6 +314,25 @@ void SceneManager::stopVideo()
 }
 
 
+void SceneManager::pauseVideo()
+{	
+	if (isPlayingSequence)
+	{
+		player.setPaused(true);
+	}
+}
+
+
+void SceneManager::resumeVideo()
+{	
+	if (isPlayingSequence)
+	{
+		player.setPaused(false);
+	}
+}
+
+
+
 int SceneManager::getSequenceSize()
 {
 	ofDirectory dir;

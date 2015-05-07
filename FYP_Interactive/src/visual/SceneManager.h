@@ -23,6 +23,8 @@ public:
 	void toggleRecording();
 	void playVideo(int sequenceID);
 	void stopVideo();
+	void pauseVideo();
+	void resumeVideo();
 	int getSequenceSize();
 	void exit();
 
