@@ -13,7 +13,8 @@ void GUI::setup(int sequenceSize, vector<ofImage> skelImages)
 	addDancerSilhouetteGUI();
 	addUserSilhouetteGUI();
 	addSequenceSelectorGUI(sequenceSize, skelImages);
-    addRecordingGUI();
+    addSoundGUI();
+	addRecordingGUI();
     addDebugGUI();
     addBackgroundGUI();
     addGUIDesignGUI();
@@ -195,6 +196,14 @@ void GUI::addSequenceSelectorGUI(int sequenceSize, vector<ofImage> skelImages)
 	ofAddListener(gui->newGUIEvent, this, &GUI::sequenceSelectorGUIEvent);
 }
 
+
+void GUI::addSoundGUI()
+{
+    ofxUICanvas* gui = getNewGUI("SOUND");
+	gui->addSlider("INTRO SPEED", 1, 300, &app->soundManager.introSpeed, length, dim);
+	gui->addSlider("OUTRO SPEED", 1, 300, &app->soundManager.outroSpeed, length, dim);
+	finaliseCanvas(gui);
+}
 	
 
 void GUI::addRecordingGUI()

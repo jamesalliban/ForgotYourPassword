@@ -17,6 +17,7 @@ public:
 	void addDancerSilhouetteGUI();
 	void addUserSilhouetteGUI();
 	void addSequenceSelectorGUI(int sequenceSize, vector<ofImage> skelImages);
+	void addSoundGUI();
 	void addRecordingGUI();
     void addDebugGUI();
     void addBackgroundGUI();

@@ -75,6 +75,10 @@ void ofApp::update()
 		poseManager.update(kinectManager.getSkeletonData());
 	}
 	sceneManager.update(*kinectManager.kinect.getDepthSource(), isPaused);
+	if (sceneManager.isPlayingSequence)
+	{
+		soundManager.update(sceneManager.player.getCurrentFrame(), sceneManager.player.getTotalNumFrames());
+	}
 
 	if (isNewPoseHack)
 	{
@@ -163,6 +167,7 @@ void ofApp::keyPressed(int key)
 	if (key == 's')
 	{
 		sceneManager.stopVideo();
+		soundManager.stopSound();
 	}
 	if (key == 't')
 	{
