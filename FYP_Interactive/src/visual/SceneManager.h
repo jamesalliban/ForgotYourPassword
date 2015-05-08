@@ -42,7 +42,8 @@ public:
 	ofPixels pix;
 
     ofxHapPlayer player;
-
+	
+	ofEvent<float> videoCompleteEvent;
 
 	ofFbo dancerFbo[2];
 	ofFbo userFbo[2];
@@ -60,6 +61,7 @@ public:
 	
 	ofShader blurShaderH;
 	ofShader blurShaderV;
+
 	float dancerBlurAmount;
 	float dancerBlurSamples;
 	float userBlurAmount;

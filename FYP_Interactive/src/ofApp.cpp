@@ -4,7 +4,6 @@
 TODO:
 
 - Graphical silhouettes:
-	- Add colour sliders - uniform across both
 	- Play
 		- Motion reduces resample count
 		
@@ -29,7 +28,7 @@ TODO:
 
 
 TODAY:
-- Transition between user and dancer and back again.
+- antialiasing
 - Add audio - play a random section when each dance is playing
 - Add rough Instructions
 
@@ -47,12 +46,16 @@ void ofApp::setup()
 	ofSetBackgroundAuto(false);
 	ofSetFullscreen(true);
     ofDisableArbTex();
+	ofEnableSmoothing();
 
 	kinectManager.setup();
 	poseManager.setup();
 	ofAddListener(poseManager.poseRecognisedEvent, this, &ofApp::poseRecognised);
 	sceneManager.setup();
+	ofAddListener(sceneManager.videoCompleteEvent, this, &ofApp::videoComplete);
 	int danceSequenceSize = sceneManager.getSequenceSize();
+	soundManager.setup();
+	
 	gui.setup(danceSequenceSize, poseManager.getPoseImages());
 	
 	soundStream.setup(this, 0, 2, 44100, 256, 4);
@@ -119,9 +122,16 @@ void ofApp::loadShaders()
 
 void ofApp::poseRecognised(Pose & eventPose)
 {
-	sceneManager.playVideo(eventPose.id);
+	if (!sceneManager.isPlayingSequence) 
+		sceneManager.playVideo(eventPose.id);
+	if (!soundManager.isPlayingSound) 
+		soundManager.startSound();
 }
 
+void ofApp::videoComplete(float & f)
+{
+	soundManager.stopSound();
+}
 
 void ofApp::keyPressed(int key)
 {

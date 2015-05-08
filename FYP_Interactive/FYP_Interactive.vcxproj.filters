@@ -268,6 +268,9 @@
     <ClCompile Include="src\visual\media\ScreenRecorder.cpp">
       <Filter>src\visual\media</Filter>
     </ClCompile>
+    <ClCompile Include="src\sound\SoundManager.cpp">
+      <Filter>src\sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -434,6 +437,9 @@
     </Filter>
     <Filter Include="src\visual\media">
       <UniqueIdentifier>{6b978f2d-9d85-4acb-afc7-43403137bb37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sound">
+      <UniqueIdentifier>{9d52b021-2e66-4e05-a629-d9cadd96d9d5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -994,6 +1000,9 @@
     </ClInclude>
     <ClInclude Include="src\visual\media\ThreadedImageSequenceLoader.h">
       <Filter>src\visual\media</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sound\SoundManager.h">
+      <Filter>src\sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

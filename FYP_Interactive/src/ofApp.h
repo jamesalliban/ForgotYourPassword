@@ -4,6 +4,7 @@
 #include "KinectManager.h"
 #include "PoseManager.h"
 #include "SceneManager.h"
+#include "SoundManager.h"
 #include "GUI.h"
 
 			
@@ -15,6 +16,7 @@ public:
 	void draw();
 	void loadShaders();
 	void poseRecognised(Pose & eventPose);
+	void videoComplete(float & f);
 	void keyPressed(int key);
 	void audioIn(float * input, int bufferSize, int nChannels);
 	void exit();
@@ -22,6 +24,7 @@ public:
 	KinectManager kinectManager;
 	PoseManager poseManager;
 	SceneManager sceneManager;
+	SoundManager soundManager;
 
 	GUI gui;
 

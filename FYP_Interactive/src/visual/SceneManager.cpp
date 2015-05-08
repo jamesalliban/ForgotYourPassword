@@ -61,6 +61,9 @@ void SceneManager::update(Depth & depth, bool isPaused)
 			isPlayingSequence = false;
 			isUserVisible = true;
 			isDancerVisible = false;
+			
+			float ddd;
+			ofNotifyEvent(videoCompleteEvent, ddd);	
 		}
 		
 		// blur the video horizontally
@@ -117,7 +120,6 @@ void SceneManager::update(Depth & depth, bool isPaused)
 	}
 	else
 	{
-		cout << " - writing to rec depth fbo" << endl;
 		depthFbo.begin();
 		depthShader.begin();
 		depthShader.setUniform1i("isClipping", (isClipping) ? 1 : 0);
@@ -266,7 +268,6 @@ void SceneManager::drawDebug(Depth & depth)
 
 	if (isDrawClippedDepth)
 	{
-		//cout << "dd - " << ofGetFrameNum() << endl;
 		ofPushMatrix();
 		ofTranslate(0, ofGetHeight() - srcH * vidScale * 2);
 		ofScale(vidScale, vidScale);
@@ -335,24 +336,22 @@ void SceneManager::toggleRecording()
 
 void SceneManager::playVideo(int sequenceID)
 {
-	if (!isPlayingSequence)
-	{
-		if (sequenceID == 5)
-			sequenceID = 4;
-		string sId = ofToString(sequenceID);
-		if (sId.size() < 2)
-			sId = '0' + sId;
+	if (sequenceID == 5)
+		sequenceID = 4;
+	string sId = ofToString(sequenceID);
+	if (sId.size() < 2)
+		sId = '0' + sId;
 
-		player.loadMovie("movies/FYP_Sequence_" + sId + ".mov");
-		player.play();
+	player.loadMovie("movies/FYP_Sequence_" + sId + ".mov");
+	player.play();
 	
-		cout << "playVideo " << "movies/FYP_Sequence_" + sId + ".mov" << endl;
+	cout << "playVideo " << "movies/FYP_Sequence_" + sId + ".mov" << endl;
 
-		isPlayingSequence = true;
+	isPlayingSequence = true;
 
-		isUserVisible = false;
-		isDancerVisible = true;
-	}
+	isUserVisible = false;
+	isDancerVisible = true;
+	
 }
 
 
