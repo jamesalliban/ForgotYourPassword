@@ -70,14 +70,11 @@ void PoseManager::update(vector<Body> bodies)
 
 	}
 
-	if (isTracking)
-	{
-		if (hasRecordingBeenTaken)
-			comparePoses(livePose, recordedPose);
+	if (hasRecordingBeenTaken)
+		comparePoses(livePose, recordedPose);
 
-		for (int i = 0; i < loadedPoses.size(); i++)
-			comparePoses(livePose, loadedPoses[i]);
-	}
+	for (int i = 0; i < loadedPoses.size(); i++)
+		comparePoses(livePose, loadedPoses[i]);
 
 	if (bodies.size() > 0)
 	{
@@ -341,12 +338,12 @@ void PoseManager::comparePoses(Pose & live, Pose & recorded)
 			recorded.framesAtConfidenceLevel++;
 			if (recorded.framesAtConfidenceLevel >= maxFramesForConfTrigger)
 			{
-				cout << "EVENT - " << recorded.id << endl;
 				recorded.framesAtConfidenceLevel = 0;
 				trackedPose.joints = live.joints;
 				trackedPose.jointsCorrected = live.jointsCorrected;
 				drawPoseToFbo(trackedPose);
-				ofNotifyEvent(poseRecognisedEvent, recorded);
+				if (isTracking)
+					ofNotifyEvent(poseRecognisedEvent, recorded);
 			}
 		}
 		else

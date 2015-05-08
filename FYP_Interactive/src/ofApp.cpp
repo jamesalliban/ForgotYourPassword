@@ -3,6 +3,8 @@
 /*
 TODO:
 
+- Remove some of the poses from the following folders - xml, movies, images
+
 - Graphical silhouettes:
 	- Play
 		- Motion reduces resample count
@@ -18,18 +20,12 @@ TODO:
 	- Add copy above - "Unlock your avatar"
 	- Add copy below - "Enact a pose"
 	
-- Audio
-	- Each time a sequence is started, select a random part of the sound file and fade in/out
-
 - MISC
 	- Limit the interaction to a single person standing in a specific zone
 	- Test on projector
-	- Add button to stop current video.
 
 
 TODAY:
-- antialiasing
-- Add audio - play a random section when each dance is playing
 - Add rough Instructions
 
 NICE TO HAVE:
@@ -55,7 +51,8 @@ void ofApp::setup()
 	ofAddListener(sceneManager.videoCompleteEvent, this, &ofApp::videoComplete);
 	int danceSequenceSize = sceneManager.getSequenceSize();
 	soundManager.setup();
-	
+	instructions.setup();
+
 	gui.setup(danceSequenceSize, poseManager.getPoseImages());
 	
 	soundStream.setup(this, 0, 2, 44100, 256, 4);
@@ -82,7 +79,6 @@ void ofApp::update()
 
 	if (isNewPoseHack)
 	{
-		cout << "NEW POSE" << endl;
 		isNewPoseHack = false;
 		poseManager.recordNewPose(kinectManager.getSkeletonData());
 	}

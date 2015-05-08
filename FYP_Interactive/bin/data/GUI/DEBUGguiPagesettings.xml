@@ -31,7 +31,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>LARGE CLIPPED DEPTH SCALE</Name>
-    <Value>1.701754332</Value>
+    <Value>2.000000000</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -46,7 +46,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>SILHOUETTE PREVIEW SCALE</Name>
-    <Value>0.331578940</Value>
+    <Value>0.305263162</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -56,10 +56,10 @@
 <Widget>
     <Kind>2</Kind>
     <Name>DRAW LOADED SKEL DATA</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>SKEL PREVIEW SCALE</Name>
-    <Value>0.544736862</Value>
+    <Value>0.410526305</Value>
 </Widget>

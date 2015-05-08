@@ -29,7 +29,6 @@ public:
        
     void threadedFunction()
     {
-		cout << "exporting" << endl;
         while(isThreadRunning())
         {
             if(!q.empty())

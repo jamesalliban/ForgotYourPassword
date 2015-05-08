@@ -271,6 +271,9 @@
     <ClCompile Include="src\sound\SoundManager.cpp">
       <Filter>src\sound</Filter>
     </ClCompile>
+    <ClCompile Include="src\visual\instructions\Instructions.cpp">
+      <Filter>src\visual\instructions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -440,6 +443,9 @@
     </Filter>
     <Filter Include="src\sound">
       <UniqueIdentifier>{9d52b021-2e66-4e05-a629-d9cadd96d9d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\visual\instructions">
+      <UniqueIdentifier>{0b73f66f-5b73-48f2-9cf3-2a406c245510}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1003,6 +1009,9 @@
     </ClInclude>
     <ClInclude Include="src\sound\SoundManager.h">
       <Filter>src\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="src\visual\instructions\Instructions.h">
+      <Filter>src\visual\instructions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

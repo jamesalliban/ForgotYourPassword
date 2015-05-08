@@ -27,7 +27,6 @@ void SoundManager::update(float currentVideoFrame, float totalVideoFrames)
 
 void SoundManager::startSound()
 {
-	cout << "- - - startSound" << endl;
 	soundPlayer.setVolume(0);
 	soundPlayer.play();
 	soundPlayer.setPosition(ofRandom(0.8));
@@ -37,7 +36,6 @@ void SoundManager::startSound()
 
 void SoundManager::stopSound()
 {
-	cout << "- - - stopSound" << endl;
 	soundPlayer.setVolume(0);
 	soundPlayer.stop();
 	isPlayingSound = false;

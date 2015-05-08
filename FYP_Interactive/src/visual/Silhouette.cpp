@@ -5,21 +5,14 @@ void Silhouette::setup(int _srcW, int _srcH)
 {
 	srcW = _srcW;
 	srcH = _srcH;
-
-	//contourFinder.setMinAreaRadius(10);
-	//contourFinder.setMaxAreaRadius(150);
 }
 
 
-void Silhouette::update(ofPixels & pix)         ////////////////////////// pass in pixels
+void Silhouette::update(ofPixels & pix)
 {
 	cvColourImg.setFromPixels(pix);
-	//cvGreyImg.allocate(pix.getWidth(), pix.getWidth());
 	cvGreyImg = cvColourImg;
-    cvGreyImg.threshold(cvThreshold);
-	//cvGreyImg.setFromPixels(pix);
-	//contourFinder.setThreshold(imageContourThreshold);
-	//contourFinder.setFindHoles(true);
+    cvGreyImg.threshold(cvThreshold); 
 	
 	contourFinder.findContours(cvGreyImg, minContourArea, maxContourArea, contourAmountConsidered, isFindHoles, isUseApproximation);
 }
