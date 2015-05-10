@@ -18,6 +18,7 @@ public:
 	void addUserSilhouetteGUI();
 	void addSequenceSelectorGUI(int sequenceSize, vector<ofImage> skelImages);
 	void addSoundGUI();
+	void addInstructionsGUI();
 	void addRecordingGUI();
     void addDebugGUI();
     void addBackgroundGUI();

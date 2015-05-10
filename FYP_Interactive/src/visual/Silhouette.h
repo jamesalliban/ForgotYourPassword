@@ -12,13 +12,16 @@ struct Blob
 class Silhouette
 {
 public:
+	Silhouette() {};
+	~Silhouette() {};
+
 	void setup(int _srcW, int _srcH);
 	void update(ofPixels & pix);
 	void draw();
 	void drawCvGreyImg();
 	void drawContour();
 
-	string type;
+	//string type;
 	float * colour[3];
 	float * holeColour[3];
 

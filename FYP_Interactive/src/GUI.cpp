@@ -14,6 +14,7 @@ void GUI::setup(int sequenceSize, vector<ofImage> skelImages)
 	addUserSilhouetteGUI();
 	addSequenceSelectorGUI(sequenceSize, skelImages);
     addSoundGUI();
+	addInstructionsGUI();
 	addRecordingGUI();
     addDebugGUI();
     addBackgroundGUI();
@@ -204,7 +205,35 @@ void GUI::addSoundGUI()
 	gui->addSlider("OUTRO SPEED", 1, 300, &app->soundManager.outroSpeed, length, dim);
 	finaliseCanvas(gui);
 }
+
+
+void GUI::addInstructionsGUI()
+{
+    ofxUICanvas* gui = getNewGUI("INSTRUCTIONS");
 	
+	gui->addSpacer(length, 1);
+	gui->addSlider("CV THRESHOLD", 1, 255, &app->sceneManager.instructions.cvThreshold, length, dim);
+	gui->addSlider("MIN CONTOUR AREA", 1, 200, &app->sceneManager.instructions.minContourArea, length, dim);
+	gui->addSlider("MAX CONTOUR AREA", 1, 100000, &app->sceneManager.instructions.maxContourArea, length, dim);
+	gui->addSlider("CONTOUR AMOUNT CONSIDERED", 1, 200, &app->sceneManager.instructions.contourAmountConsidered, length, dim);
+	gui->addToggle("CONTOUR FIND HOLES", &app->sceneManager.instructions.isFindHoles, toggleSize, toggleSize);
+	gui->addToggle("CONTOUR USE APPROXIMATION", &app->sceneManager.instructions.isUseApproximation, toggleSize, toggleSize);
+	
+	gui->addSpacer(length, 1);
+	gui->addSlider("CONTOUR RESAMPLE COUNT", 3, 200, &app->sceneManager.instructions.resampleAmount, length, dim);
+	gui->addSlider("RANDOM OFFSET", 0, 5.0, &app->sceneManager.instructions.randOffset, length, dim);
+	
+	gui->addSpacer(length, 1);
+	gui->addSlider("TEXT 1 Y POSITION", 0, 1200, &app->sceneManager.instructions.text1YPos, length, dim);
+	gui->addSlider("TEXT 2 Y POSITION", 0, 1200, &app->sceneManager.instructions.text2YPos, length, dim);
+	gui->addSlider("POSE SELECTION Y POSITION", 0, 1200, &app->sceneManager.instructions.poseSelectionYPos, length, dim);
+	gui->addSlider("POSE SELECTION SPACING", 0, 300, &app->sceneManager.instructions.poseSelectionSpacing, length, dim);
+	gui->addSlider("POSE SELECTION SCALE", 0, 2, &app->sceneManager.instructions.poseSelectionScale, length, dim);
+	
+
+	finaliseCanvas(gui);
+}
+
 
 void GUI::addRecordingGUI()
 {

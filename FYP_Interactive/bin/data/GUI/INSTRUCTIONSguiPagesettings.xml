@@ -1,0 +1,65 @@
+<Widget>
+    <Kind>4</Kind>
+    <Name>CV THRESHOLD</Name>
+    <Value>44.818714142</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MIN CONTOUR AREA</Name>
+    <Value>56.859649658</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>MAX CONTOUR AREA</Name>
+    <Value>83333.500000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>CONTOUR AMOUNT CONSIDERED</Name>
+    <Value>77.807014465</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>CONTOUR FIND HOLES</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>CONTOUR USE APPROXIMATION</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>CONTOUR RESAMPLE COUNT</Name>
+    <Value>104.380119324</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>RANDOM OFFSET</Name>
+    <Value>0.789473653</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>TEXT 1 Y POSITION</Name>
+    <Value>42.105262756</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>TEXT 2 Y POSITION</Name>
+    <Value>87.719291687</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>POSE SELECTION Y POSITION</Name>
+    <Value>196.491226196</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>POSE SELECTION SPACING</Name>
+    <Value>172.807022095</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>POSE SELECTION SCALE</Name>
+    <Value>0.649122834</Value>
+</Widget>

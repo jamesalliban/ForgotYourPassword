@@ -1,7 +1,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>IMAGE CONTOUR THRESHOLD</Name>
-    <Value>46.228069305</Value>
+    <Value>46.973682404</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -26,7 +26,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>MAX CONTOUR AREA</Name>
-    <Value>86842.242187500</Value>
+    <Value>86549.835937500</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -46,7 +46,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>CONTOUR RESAMPLE COUNT</Name>
-    <Value>190.783645630</Value>
+    <Value>190.207611084</Value>
 </Widget>
 <Widget>
     <Kind>11</Kind>

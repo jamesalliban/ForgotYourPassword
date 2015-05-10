@@ -6,6 +6,7 @@
 #include "ScreenRecorder.h"
 #include "ofxHapPlayer.h"
 #include "Silhouette.h"
+#include "Instructions.h"
 
 using namespace ofxKinectForWindows2::Source;
 
@@ -13,6 +14,7 @@ class SceneManager
 {
 public:
 	void setup();
+	void setupInstructions();
 	void update(Depth & depth, bool isPaused);
 	void drawBackground();
 	void draw(Depth & depth);
@@ -43,6 +45,8 @@ public:
 
     ofxHapPlayer player;
 	
+	Instructions instructions;
+
 	ofEvent<float> videoCompleteEvent;
 
 	ofFbo dancerFbo[2];

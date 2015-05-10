@@ -51,10 +51,11 @@ void ofApp::setup()
 	ofAddListener(sceneManager.videoCompleteEvent, this, &ofApp::videoComplete);
 	int danceSequenceSize = sceneManager.getSequenceSize();
 	soundManager.setup();
-	instructions.setup();
 
 	gui.setup(danceSequenceSize, poseManager.getPoseImages());
 	
+	sceneManager.setupInstructions();
+
 	soundStream.setup(this, 0, 2, 44100, 256, 4);
 	frameAtLastSoundEvent = 0;
 	smoothAmplitude = 0;
@@ -172,6 +173,10 @@ void ofApp::keyPressed(int key)
 	if (key == 'd')
 	{
 		isDebugVisible = !isDebugVisible;
+	}
+	if (key == 'i')
+	{
+		sceneManager.setupInstructions();
 	}
 	if (key == OF_KEY_LEFT)
 	{

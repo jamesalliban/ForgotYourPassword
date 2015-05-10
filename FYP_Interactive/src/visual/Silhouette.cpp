@@ -1,6 +1,7 @@
 
 #include "Silhouette.h"
 
+
 void Silhouette::setup(int _srcW, int _srcH)
 {
 	srcW = _srcW;

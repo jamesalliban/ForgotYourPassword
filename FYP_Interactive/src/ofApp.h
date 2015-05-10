@@ -5,7 +5,6 @@
 #include "PoseManager.h"
 #include "SceneManager.h"
 #include "SoundManager.h"
-#include "Instructions.h"
 #include "GUI.h"
 
 			
@@ -26,7 +25,6 @@ public:
 	PoseManager poseManager;
 	SceneManager sceneManager;
 	SoundManager soundManager;
-	Instructions instructions;
 
 	GUI gui;
 

@@ -27,9 +27,7 @@ void SceneManager::setup()
 	isUserSilhouetteDebugVisible = true;
 	
 	userSilhouette.setup(srcW, srcH);
-	userSilhouette.type = "user";
 	dancerSilhouette.setup(srcW, srcH);	
-	dancerSilhouette.type = "dancer";
 	
 	dancerSilhouette.colour[0] = &silhouetteCol[0];
 	dancerSilhouette.colour[1] = &silhouetteCol[1];
@@ -46,10 +44,15 @@ void SceneManager::setup()
 	userSilhouette.holeColour[2] = &bgCol[2];
 }
 
+
+void SceneManager::setupInstructions()
+{
+	instructions.setup(srcW, srcH);
+}
+
+
 void SceneManager::update(Depth & depth, bool isPaused)
 {
-	
-
 	if (player.isLoaded() && isPlayingSequence && !isPaused)
 	{
 		player.update();
@@ -179,6 +182,9 @@ void SceneManager::drawBackground()
 	ofSetColor(bgCol[0], bgCol[1], bgCol[2]);
 	ofRect(0, 0, ofGetWidth(), ofGetHeight());
 	ofPopStyle();
+
+	
+	instructions.update();
 }
 
 
@@ -192,6 +198,8 @@ void SceneManager::draw(Depth & depth)
 
 	if (isUserVisible)
 		userSilhouette.draw();
+
+	instructions.draw();
 }
 
 
