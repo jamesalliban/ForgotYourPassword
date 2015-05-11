@@ -45,7 +45,6 @@ public:
 	float introSpeed;
 	float outroSpeed;
 	float displayTime;
-	float gapTime;
 	float showLoopDelay;
 
 	float cvThreshold;

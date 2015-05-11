@@ -13,6 +13,7 @@ void KinectManager::setup()
 void KinectManager::update()
 {
 	this->kinect.update();
+	wasUserTrackedLastFrame = isUserTracked;
 }
 
 void KinectManager::draw()
@@ -74,9 +75,13 @@ vector<Body> KinectManager::getSkeletonData()
 		if (spineBasePos.x > boundsXMin && spineBasePos.x < boundsXMax && spineBasePos.z > boundsZMin && spineBasePos.z < boundsZMax)
 		{
 			activeBodiesWithinBounds.push_back(activeBodies[i]);
+			isUserTracked = true;
 			break;
 		}
 	}
+
+	if (activeBodiesWithinBounds.size() == 0)
+		isUserTracked = false;
 
 	return activeBodiesWithinBounds;
 }

@@ -9,22 +9,14 @@ TODO:
 		- working with multiple 
 	- Try morphing back after only if a user is in place. Otherwise fade out.
 
-- Display poses to audience:
-	- When user first enters, show a few random stances. Continue every 10 seconds until one is recognised.
-	- Add copy above - "Unlock your avatar"
-	- Add copy below - "Enact a pose"
 	
 - MISC
-	- Limit the interaction to a single person standing in a specific zone
-	- Test on projector
+	- Add start and end offsets for videos to gui - update the data being sent to soundManager
 
 - VIDEOS
-	- 8 seems to be 2 dances.
 
-TODAY:
-- Add rough Instructions
-
-NICE TO HAVE:
+- NICE TO HAVE
+	- Instructions silhouettes should have holes instead of black shapes
 
 */
 
@@ -79,6 +71,9 @@ void ofApp::update()
 		isNewPoseHack = false;
 		poseManager.recordNewPose(kinectManager.getSkeletonData());
 	}
+
+	if (kinectManager.isUserTracked && !kinectManager.wasUserTrackedLastFrame)
+		sceneManager.instructions.startShowTimer(startInstructionsNewUserDelay);
 }
 
 
@@ -128,6 +123,7 @@ void ofApp::poseRecognised(Pose & eventPose)
 void ofApp::videoComplete(float & f)
 {
 	soundManager.stopSound();
+	sceneManager.instructions.startShowTimer(startInstructionsVideoEndDelay);
 }
 
 void ofApp::keyPressed(int key)

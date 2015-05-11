@@ -18,6 +18,8 @@ void Instructions::setup(int _srcW, int _srcH)
 	
 	//showInstructionsTimer.setup(1000, "SHOW");
 	ofAddListener(showInstructionsTimer.TIMER_COMPLETE , this, &Instructions::doIntro);
+
+	startShowTimer(1000);
 }
 
 
@@ -187,9 +189,10 @@ void Instructions::selectNewPoses()
 
 void Instructions::startShowTimer(int millis)
 {
-	//stopAll();
+	showInstructionsTimer.stop();
 	showInstructionsTimer.setup(millis, "SHOW");
 	showInstructionsTimer.start(false);
+
 }
 
 

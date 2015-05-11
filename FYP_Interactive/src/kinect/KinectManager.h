@@ -21,6 +21,9 @@ public:
 	bool isDrawBodyIndex;
 	bool isDrawSkeletons;
 	
+	bool isUserTracked;
+	bool wasUserTrackedLastFrame;
+	
 	float boundsXMin;
 	float boundsXMax;
 	float boundsZMin;

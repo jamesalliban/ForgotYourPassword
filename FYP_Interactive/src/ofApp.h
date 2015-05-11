@@ -40,4 +40,7 @@ public:
 	bool isNewPoseHack; // need to use a flag as I can'trecord new pose from audioIn()
 
 	bool isDebugVisible;
+
+	float startInstructionsNewUserDelay;
+	float startInstructionsVideoEndDelay;
 };

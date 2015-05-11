@@ -239,8 +239,9 @@ void GUI::addInstructionsGUI()
 	gui->addSlider("INTRO SPEED", 0, 120, &app->sceneManager.instructions.introSpeed, length, dim);
 	gui->addSlider("OUTRO SPEED", 0, 120, &app->sceneManager.instructions.outroSpeed, length, dim);
 	gui->addSlider("DISPLAY TIME", 1000, 10000, &app->sceneManager.instructions.displayTime, length, dim);
-	gui->addSlider("GAP TIME", 1000, 20000, &app->sceneManager.instructions.gapTime, length, dim);
-	gui->addSlider("SHOW LOOP TIME", 5000, 30000, &app->sceneManager.instructions.showLoopDelay, length, dim);
+	gui->addSlider("LOOP TIME", 5000, 30000, &app->sceneManager.instructions.showLoopDelay, length, dim);
+	gui->addSlider("START ON NEW USER DELAY", 1000, 20000, &app->startInstructionsNewUserDelay, length, dim);
+	gui->addSlider("START ON VIDEO END DELAY", 1000, 20000, &app->startInstructionsVideoEndDelay, length, dim);
 
 	finaliseCanvas(gui);
 }
