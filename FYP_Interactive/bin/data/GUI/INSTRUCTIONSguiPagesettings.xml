@@ -36,22 +36,22 @@
 <Widget>
     <Kind>4</Kind>
     <Name>RANDOM OFFSET</Name>
-    <Value>0.789473653</Value>
+    <Value>0.745614052</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>TEXT 1 Y POSITION</Name>
-    <Value>42.105262756</Value>
+    <Value>94.736839294</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>TEXT 2 Y POSITION</Name>
-    <Value>87.719291687</Value>
+    <Value>143.859649658</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>POSE SELECTION Y POSITION</Name>
-    <Value>196.491226196</Value>
+    <Value>245.614028931</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -62,4 +62,29 @@
     <Kind>4</Kind>
     <Name>POSE SELECTION SCALE</Name>
     <Value>0.649122834</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>INTRO SPEED</Name>
+    <Value>7.719298363</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>OUTRO SPEED</Name>
+    <Value>8.070175171</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>DISPLAY TIME</Name>
+    <Value>2473.684326172</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>GAP TIME</Name>
+    <Value>20000.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>SHOW LOOP TIME</Name>
+    <Value>5511.695800781</Value>
 </Widget>

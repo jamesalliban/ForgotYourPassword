@@ -1,7 +1,7 @@
 <Widget>
     <Kind>2</Kind>
     <Name>TOGGLE ALL DEBUG</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -51,7 +51,7 @@
 <Widget>
     <Kind>2</Kind>
     <Name>DRAW LIVE SKEL DATA</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>

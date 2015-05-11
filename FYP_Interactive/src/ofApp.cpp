@@ -2,12 +2,6 @@
 
 /*
 TODO:
-
-- Remove some of the poses from the following folders - xml, movies, images
-
-- Graphical silhouettes:
-	- Play
-		- Motion reduces resample count
 		
 - Transition
 	- Match x, y and height of bounding box
@@ -24,6 +18,8 @@ TODO:
 	- Limit the interaction to a single person standing in a specific zone
 	- Test on projector
 
+- VIDEOS
+	- 8 seems to be 2 dances.
 
 TODAY:
 - Add rough Instructions
@@ -37,7 +33,7 @@ void ofApp::setup()
 {
 	//ofSetLogLevel(OF_LOG_VERBOSE);
 	ofSetLogLevel(OF_LOG_SILENT);
-	ofSetWindowShape(1800, 1000);
+	ofSetWindowShape(1200, 1000);
 	ofSetFrameRate(30);
 	ofSetBackgroundAuto(false);
 	ofSetFullscreen(true);
@@ -186,6 +182,10 @@ void ofApp::keyPressed(int key)
 	{
 		sceneManager.scrubVideo(30);
 	}
+	if (key == 'I')
+	{
+		sceneManager.instructions.startShowTimer(1000);
+	}
 	if (key == '0')
 		sceneManager.playVideo(0);
 	if (key == '1')
@@ -212,9 +212,6 @@ void ofApp::keyPressed(int key)
 //--------------------------------------------------------------
 void ofApp::audioIn(float * input, int bufferSize, int nChannels)
 {
-	//if (smoothAmplitude > minAmplitudeForEvent)
-	//	cout << "smoothAmplitude = " << smoothAmplitude << endl;
-
 	float amplitude = 0;
 	for (int i = 0; i < bufferSize; i++)
 		amplitude += abs(input[bufferSize]) * 10;

@@ -18,3 +18,15 @@
     <Name>MAX FRAMES FOR CONF TRIGGER</Name>
     <Value>25.530822754</Value>
 </Widget>
+<Widget>
+    <Kind>6</Kind>
+    <Name>SKEL TRACKING BOUNDS X</Name>
+    <HighValue>0.362573147</HighValue>
+    <LowValue>-0.362573087</LowValue>
+</Widget>
+<Widget>
+    <Kind>6</Kind>
+    <Name>SKEL TRACKING BOUNDS Z</Name>
+    <HighValue>4.225146294</HighValue>
+    <LowValue>2.616958857</LowValue>
+</Widget>

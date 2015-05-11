@@ -20,4 +20,9 @@ public:
 	
 	bool isDrawBodyIndex;
 	bool isDrawSkeletons;
+	
+	float boundsXMin;
+	float boundsXMax;
+	float boundsZMin;
+	float boundsZMax;
 };

@@ -38,6 +38,7 @@ void GUI::addVariousGUI()
     gui->addLabel("'t' - TOGGLE TRACKING", OFX_UI_FONT_SMALL);
     gui->addLabel("'l' - LOAD SHADERS", OFX_UI_FONT_SMALL);
     gui->addLabel("'d' - TOGGLE DEBUG VISIBLE", OFX_UI_FONT_SMALL);
+    gui->addLabel("'i' - REDO INSTRUCTIONS (AFTER GUI CHANGES)", OFX_UI_FONT_SMALL);
 
     gui->addLabel("'r' - TOGGLE RECORDING", OFX_UI_FONT_SMALL);
     gui->addLabel("'S' - SAVE NEW POSE TO XML", OFX_UI_FONT_SMALL);
@@ -102,6 +103,10 @@ void GUI::addTrackingGUI()
 	gui->addSlider("CONFIDENCE EXPO", 1.0, 5.0, &app->poseManager.confidenceExpo, length, dim);
     gui->addSlider("MAX FRAMES FOR CONF TRIGGER", 5, 60, &app->poseManager.maxFramesForConfTrigger, length, dim);
 	
+	gui->addSpacer(length, 1);
+	gui->addRangeSlider("SKEL TRACKING BOUNDS X", -1, 1, &app->kinectManager.boundsXMin, &app->kinectManager.boundsXMax, length, dim);
+	gui->addRangeSlider("SKEL TRACKING BOUNDS Z", 0, 5, &app->kinectManager.boundsZMin, &app->kinectManager.boundsZMax, length, dim);
+
     finaliseCanvas(gui);
 }
 
@@ -230,6 +235,12 @@ void GUI::addInstructionsGUI()
 	gui->addSlider("POSE SELECTION SPACING", 0, 300, &app->sceneManager.instructions.poseSelectionSpacing, length, dim);
 	gui->addSlider("POSE SELECTION SCALE", 0, 2, &app->sceneManager.instructions.poseSelectionScale, length, dim);
 	
+	gui->addSpacer(length, 1);
+	gui->addSlider("INTRO SPEED", 0, 120, &app->sceneManager.instructions.introSpeed, length, dim);
+	gui->addSlider("OUTRO SPEED", 0, 120, &app->sceneManager.instructions.outroSpeed, length, dim);
+	gui->addSlider("DISPLAY TIME", 1000, 10000, &app->sceneManager.instructions.displayTime, length, dim);
+	gui->addSlider("GAP TIME", 1000, 20000, &app->sceneManager.instructions.gapTime, length, dim);
+	gui->addSlider("SHOW LOOP TIME", 5000, 30000, &app->sceneManager.instructions.showLoopDelay, length, dim);
 
 	finaliseCanvas(gui);
 }

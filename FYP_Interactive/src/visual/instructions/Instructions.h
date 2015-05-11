@@ -2,24 +2,28 @@
 
 #include "ofMain.h"
 #include "Silhouette.h"
-
+#include "ofxSimpleTimer.h"
 
 struct PoseThumbnail
 {
-	//Silhouette silhouette;
-	//ofPixels pix;
-	
 	vector<ofPolyline> shapes;
 	vector<ofPolyline> holes;
+	vector<ofPolyline> shapesOffset;
+	vector<ofPolyline> holesOffset;
 };
 
 class Instructions
 {
 public:
 	void setup(int _srcW, int _srcH);
+	void loadPoses();
 	void update();
 	void draw();
 	void selectNewPoses();
+	void startShowTimer(int millis);
+	void doIntro(int &args);
+	void doOutro(int &args);
+	void stopAll();
 
 	int srcW, srcH;
 	
@@ -29,6 +33,20 @@ public:
 	Silhouette silhouette;
 
 	ofTrueTypeFont font;
+	
+	ofxSimpleTimer showInstructionsTimer;
+	ofxSimpleTimer hideInstructionsTimer;
+	
+	bool isActive;
+	bool isIntro;
+	bool isOutro;
+	bool haveTimersBeenSetup;
+	float currentAlpha;
+	float introSpeed;
+	float outroSpeed;
+	float displayTime;
+	float gapTime;
+	float showLoopDelay;
 
 	float cvThreshold;
 	float minContourArea;
@@ -45,4 +63,6 @@ public:
 	float poseSelectionYPos;
 	float poseSelectionSpacing;
 	float poseSelectionScale;
+
+	//float 
 };

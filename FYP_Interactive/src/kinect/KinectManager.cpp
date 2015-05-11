@@ -13,8 +13,6 @@ void KinectManager::setup()
 void KinectManager::update()
 {
 	this->kinect.update();
-
-	
 }
 
 void KinectManager::draw()
@@ -34,7 +32,7 @@ void KinectManager::draw()
 	//  
 	// }
 
-	
+
 	//this->kinect.getBodySource()->drawBodies(0,0,640,480);
 	//this->kinect.getBodySource()->drawBodies();
 
@@ -69,5 +67,16 @@ vector<Body> KinectManager::getSkeletonData()
 		if (bodies[i].tracked)
 			activeBodies.push_back(bodies[i]);
 	}
-	return activeBodies;
+	vector<Body> activeBodiesWithinBounds;
+	for (int i = 0; i < activeBodies.size(); i++)
+	{
+		ofVec3f spineBasePos = activeBodies[i].joints[JointType_SpineBase].getPosition();
+		if (spineBasePos.x > boundsXMin && spineBasePos.x < boundsXMax && spineBasePos.z > boundsZMin && spineBasePos.z < boundsZMax)
+		{
+			activeBodiesWithinBounds.push_back(activeBodies[i]);
+			break;
+		}
+	}
+
+	return activeBodiesWithinBounds;
 }

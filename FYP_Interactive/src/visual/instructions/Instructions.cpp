@@ -4,6 +4,25 @@ void Instructions::setup(int _srcW, int _srcH)
 {
 	srcW = _srcW;
 	srcH = _srcH;
+
+	isActive = false;
+	isIntro = false;
+	isOutro = false;
+	
+	//hideInstructionsTimer.setup(100, "HIDE");
+	//hideInstructionsTimer.setup(6600, "HIDE");
+	//hideInstructionsTimer.setup(7000, "HIDE");
+	//hideInstructionsTimer.setup(5000, "HIDE");
+	//hideInstructionsTimer.setup(1000, "HIDE");
+	ofAddListener(hideInstructionsTimer.TIMER_COMPLETE , this, &Instructions::doOutro);
+	
+	//showInstructionsTimer.setup(1000, "SHOW");
+	ofAddListener(showInstructionsTimer.TIMER_COMPLETE , this, &Instructions::doIntro);
+}
+
+
+void Instructions::loadPoses()
+{
 	ofDirectory dir;
 	dir.listDir("images");
 
@@ -55,13 +74,36 @@ void Instructions::setup(int _srcW, int _srcH)
 
 void Instructions::update()
 {
-	if (ofGetFrameNum() % 30 == 0)
-		selectNewPoses();
+	showInstructionsTimer.update();
+	hideInstructionsTimer.update();
+
+	if (isIntro)
+	{
+		currentAlpha += introSpeed;
+		if (currentAlpha > 255)
+		{
+			isIntro = false;
+			currentAlpha = 255;
+		}
+	}
+	else if (isOutro)
+	{
+		currentAlpha -= outroSpeed;
+		if (currentAlpha < 0)
+		{
+			isOutro = false;
+			currentAlpha = 0;
+			isActive = false;
+		}
+	}
 }
 
 
 void Instructions::draw()
 {
+	if (!isActive)
+		return;
+
 	ofPushStyle();
 	for (int i = 0; i < poseThumbSelection.size(); i++)
 	{
@@ -70,43 +112,46 @@ void Instructions::draw()
 		ofTranslate(x, poseSelectionYPos);
 		ofScale(poseSelectionScale, poseSelectionScale);
 
-		ofSetColor(255);
+		ofSetColor(255, currentAlpha);
 		for (int j = 0; j < poseThumbSelection[i]->shapes.size(); j++) 
 		{
+			poseThumbSelection[i]->shapesOffset = poseThumbSelection[i]->shapes;
 			vector<ofPoint>& vertices = poseThumbSelection[i]->shapes[j].getVertices();
+			vector<ofPoint>& verticesOffset = poseThumbSelection[i]->shapesOffset[j].getVertices();
 			ofBeginShape();
 			for (int k = 0; k < vertices.size(); k++) 
 			{
-				ofPoint pnt = vertices[k];
-				pnt.x += ofRandomf() * randOffset;
-				pnt.y += ofRandomf() * randOffset;
-				ofVertex(pnt);
+				//ofPoint pnt = vertices[k];
+				verticesOffset[k].x = vertices[k].x + ofRandomf() * randOffset;
+				verticesOffset[k].y = vertices[k].y + ofRandomf() * randOffset;
+				ofVertex(verticesOffset[k]);
 			}
 			ofEndShape();
 		}
-		ofSetColor(0);
+		ofSetColor(0, currentAlpha);
 		for (int j = 0; j < poseThumbSelection[i]->holes.size(); j++) 
 		{
+			poseThumbSelection[i]->holesOffset = poseThumbSelection[i]->holes;
 			vector<ofPoint>& vertices = poseThumbSelection[i]->holes[j].getVertices();
+			vector<ofPoint>& verticesOffset = poseThumbSelection[i]->holesOffset[j].getVertices();
 			ofBeginShape();
 			for (int k = 0; k < vertices.size(); k++) 
 			{
-				ofPoint pnt = vertices[k];
-				pnt.x += ofRandomf() * randOffset;
-				pnt.y += ofRandomf() * randOffset;
-				ofVertex(pnt);
+				verticesOffset[k].x = vertices[k].x + ofRandomf() * randOffset;
+				verticesOffset[k].y = vertices[k].y + ofRandomf() * randOffset;
+				ofVertex(verticesOffset[k]);
 			}
 			ofEndShape();
 		}
 
-		ofSetColor(0);
+		ofSetColor(0, currentAlpha);
 		for (int j = 0; j < poseThumbSelection[i]->shapes.size(); j++) 
-			poseThumbSelection[i]->shapes[j].draw();
+			poseThumbSelection[i]->shapesOffset[j].draw();
 
 		ofPopMatrix();
 	}
 
-	ofSetColor(255);
+	ofSetColor(255, currentAlpha);
 	
 	string text1 = "unlock your avatar";
 	ofRectangle textRect1 = font.getStringBoundingBox(text1, 0, 0);
@@ -114,7 +159,6 @@ void Instructions::draw()
 	ofTranslate(ofGetWidth() * 0.5 - textRect1.getWidth() * 0.5, text1YPos);
 	font.drawString(text1, 0, 0);
 	ofPopMatrix();
-	
 	
 	string text2 = "adopt a pose";
 	ofRectangle textRect2 = font.getStringBoundingBox(text2, 0, 0);
@@ -138,4 +182,54 @@ void Instructions::selectNewPoses()
 	do {
 		poseThumbSelection.pop_back();
 	} while (poseThumbSelection.size() > 3);
+}
+
+
+void Instructions::startShowTimer(int millis)
+{
+	//stopAll();
+	showInstructionsTimer.setup(millis, "SHOW");
+	showInstructionsTimer.start(false);
+}
+
+
+void Instructions::doIntro(int &args)
+{
+	isActive = true;
+	isIntro = true;
+	selectNewPoses();
+	hideInstructionsTimer.setup(displayTime, "HIDE");
+	hideInstructionsTimer.start(false);
+
+	showInstructionsTimer.setup(showLoopDelay, "SHOW");
+	showInstructionsTimer.start(false);
+}
+
+
+void Instructions::doOutro(int &args)
+{
+	isOutro = true;
+}
+
+
+void Instructions::stopAll()
+{
+	hideInstructionsTimer.stop();
+	showInstructionsTimer.stop();
+
+	if (isIntro)
+	{
+		isIntro = false;
+		int tempHack = 1;
+		doOutro(tempHack);
+	}
+	else if (isOutro)
+	{
+		// continue
+	}
+	else if (isActive)
+	{
+		int tempHack = 1;
+		doOutro(tempHack);
+	}
 }

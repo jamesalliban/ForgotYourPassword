@@ -82,11 +82,23 @@ void PoseManager::update(vector<Body> bodies)
 		calculateCorrectedJoints(livePose);
 		calculateJointVectors(livePose);
 	}
+	else
+	{
+		livePose.joints.clear();
+		livePose.jointsCorrected.clear();
+		livePose.jointVectors.clear();
+	}
 }
 
 
 void PoseManager::draw()
 {
+	//livePose.fbo.begin();
+	//ofClear(0.0, 0.0, 0.0, 1.0);
+	//ofSetColor(255, 0, 0);
+	//ofRect(0, 0, 100, 100);
+	//livePose.fbo.end();
+	
 	if (isLiveSkelelDataVisible)
 	{
 		drawPoseToFbo(livePose);

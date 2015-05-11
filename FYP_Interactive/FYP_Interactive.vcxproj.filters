@@ -274,6 +274,9 @@
     <ClCompile Include="src\visual\instructions\Instructions.cpp">
       <Filter>src\visual\instructions</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxSimpleTimer\src\ofxSimpleTimer.cpp">
+      <Filter>addons\ofxSimpleTimer\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -446,6 +449,12 @@
     </Filter>
     <Filter Include="src\visual\instructions">
       <UniqueIdentifier>{0b73f66f-5b73-48f2-9cf3-2a406c245510}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxSimpleTimer">
+      <UniqueIdentifier>{cbb8c296-84de-47d8-aad8-bfc20039d2c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxSimpleTimer\src">
+      <UniqueIdentifier>{89cfc7e1-ce38-4f71-a086-f58d25397d2f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1012,6 +1021,9 @@
     </ClInclude>
     <ClInclude Include="src\visual\instructions\Instructions.h">
       <Filter>src\visual\instructions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxSimpleTimer\src\ofxSimpleTimer.h">
+      <Filter>addons\ofxSimpleTimer\src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

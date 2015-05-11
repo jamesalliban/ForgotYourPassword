@@ -19,6 +19,8 @@ void SceneManager::setup()
 	userFbo[1].allocate(settings); 
 	currentUserFbo = 0;
 
+	instructions.setup(srcW, srcH);
+
 	screenRecorder.setup();
 	screenRecorder.setImageFormat("tiff");
 	loadShaders();
@@ -47,7 +49,7 @@ void SceneManager::setup()
 
 void SceneManager::setupInstructions()
 {
-	instructions.setup(srcW, srcH);
+	instructions.loadPoses();
 }
 
 
@@ -58,8 +60,9 @@ void SceneManager::update(Depth & depth, bool isPaused)
 		player.update();
 
 		// check to see if the video has completed
-		if (player.getCurrentFrame() == player.getTotalNumFrames() - 1)
+		if (player.getCurrentFrame() >= player.getTotalNumFrames() - 2)
 		{
+			cout << "stopping video" << endl;
 			player.stop();
 			isPlayingSequence = false;
 			isUserVisible = true;
@@ -95,9 +98,6 @@ void SceneManager::update(Depth & depth, bool isPaused)
 		
 		dancerFbo[currentVidFbo].readToPixels(dancerPix);
 		//dancerImg.setFromPixels(pix);
-
-		if (player.getCurrentFrame() == player.getTotalNumFrames())
-			isPlayingSequence = false;
 	}
 
 
@@ -183,7 +183,6 @@ void SceneManager::drawBackground()
 	ofRect(0, 0, ofGetWidth(), ofGetHeight());
 	ofPopStyle();
 
-	
 	instructions.update();
 }
 
@@ -344,8 +343,6 @@ void SceneManager::toggleRecording()
 
 void SceneManager::playVideo(int sequenceID)
 {
-	if (sequenceID == 5)
-		sequenceID = 4;
 	string sId = ofToString(sequenceID);
 	if (sId.size() < 2)
 		sId = '0' + sId;
@@ -359,7 +356,8 @@ void SceneManager::playVideo(int sequenceID)
 
 	isUserVisible = false;
 	isDancerVisible = true;
-	
+
+	instructions.stopAll();
 }
 
 
