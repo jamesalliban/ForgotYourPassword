@@ -76,15 +76,20 @@
 <Widget>
     <Kind>4</Kind>
     <Name>DISPLAY TIME</Name>
-    <Value>2473.684326172</Value>
+    <Value>4447.368652344</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
-    <Name>GAP TIME</Name>
-    <Value>20000.000000000</Value>
+    <Name>LOOP TIME</Name>
+    <Value>20131.580078125</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
-    <Name>SHOW LOOP TIME</Name>
-    <Value>5511.695800781</Value>
+    <Name>START ON NEW USER DELAY</Name>
+    <Value>1611.111083984</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>START ON VIDEO END DELAY</Name>
+    <Value>11833.333007813</Value>
 </Widget>

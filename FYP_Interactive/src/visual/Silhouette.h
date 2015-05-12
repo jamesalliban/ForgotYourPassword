@@ -9,6 +9,12 @@ struct Blob
 	bool isHole;
 };
 
+struct compareBlobsBySize
+{
+	bool operator() (ofPolyline lhs, ofPolyline rhs) { return lhs.getArea() > rhs.getArea(); }
+};
+
+
 class Silhouette
 {
 public:
@@ -17,9 +23,24 @@ public:
 
 	void setup(int _srcW, int _srcH);
 	void update(ofPixels & pix);
+	void createSilhouette(ofPixels & pix, vector<Blob> & _blobs);
+	void calculateMorph();
 	void draw();
+	void drawSilhouette(vector<Blob> & _blobs);
+	void startAnimation(ofPixels & pix);
 	void drawCvGreyImg();
 	void drawContour();
+	
+	vector<Blob> blobs;
+	vector<Blob> tweenFromPoseblobs;
+	vector<Blob> tweenToPoseblobs;
+	
+	float tweenFrameTotal;
+	float frameAtTransitionStart;
+	float transitionFrameProgress;
+	float normTransitionProgress;
+	
+	ofEvent<float> transitionCompleteEvent;
 
 	//string type;
 	float * colour[3];
@@ -42,4 +63,6 @@ public:
 	int srcH;
 	ofPoint position;
 	float scale;
+
+	bool isIntro;
 };

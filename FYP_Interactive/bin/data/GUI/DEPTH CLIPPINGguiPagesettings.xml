@@ -6,12 +6,12 @@
 <Widget>
     <Kind>2</Kind>
     <Name>LIVE</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
     <Name>RECORDED</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -71,7 +71,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>REC FAR CLIP</Name>
-    <Value>0.438596487</Value>
+    <Value>0.456140339</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -81,27 +81,27 @@
 <Widget>
     <Kind>4</Kind>
     <Name>REC FLOOR FAR CLIP</Name>
-    <Value>0.774853826</Value>
+    <Value>0.763157845</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>REC CEILING NEAR CLIP</Name>
-    <Value>-0.353801191</Value>
+    <Value>-0.125730991</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>REC CEILING FAR CLIP</Name>
-    <Value>0.137426913</Value>
+    <Value>0.108187139</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>REC LEFT NEAR CLIP</Name>
-    <Value>-0.032163739</Value>
+    <Value>0.172514617</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>REC LEFT FAR CLIP</Name>
-    <Value>0.581871390</Value>
+    <Value>0.336257339</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

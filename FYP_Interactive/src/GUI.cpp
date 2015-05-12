@@ -12,6 +12,7 @@ void GUI::setup(int sequenceSize, vector<ofImage> skelImages)
 	addUniversalSilhouetteGUI();
 	addDancerSilhouetteGUI();
 	addUserSilhouetteGUI();
+	addSilhouetteMorphingGUI();
 	addSequenceSelectorGUI(sequenceSize, skelImages);
     addSoundGUI();
 	addInstructionsGUI();
@@ -177,6 +178,14 @@ void GUI::addUserSilhouetteGUI()
 	gui->add2DPad("POSITION", ofPoint(0, 1), ofPoint(0, 1), &app->sceneManager.userSilhouette.position, length, length * 0.6);;
 	gui->addSlider("SCALE", 0.1, 10, &app->sceneManager.userSilhouette.scale, length, dim);
 
+    finaliseCanvas(gui);
+}
+
+
+void GUI::addSilhouetteMorphingGUI()
+{
+    ofxUICanvas* gui = getNewGUI("SILHOUETTE MORPHING");
+	gui->addSlider("FRAME SPEED", 5, 120, &app->sceneManager.dancerSilhouette.tweenFrameTotal, length, dim);
     finaliseCanvas(gui);
 }
 

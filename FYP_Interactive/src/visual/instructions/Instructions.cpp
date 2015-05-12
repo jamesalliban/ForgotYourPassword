@@ -14,10 +14,10 @@ void Instructions::setup(int _srcW, int _srcH)
 	//hideInstructionsTimer.setup(7000, "HIDE");
 	//hideInstructionsTimer.setup(5000, "HIDE");
 	//hideInstructionsTimer.setup(1000, "HIDE");
-	ofAddListener(hideInstructionsTimer.TIMER_COMPLETE , this, &Instructions::doOutro);
+	ofAddListener(hideInstructionsTimer.TIMER_COMPLETE, this, &Instructions::doOutro);
 	
 	//showInstructionsTimer.setup(1000, "SHOW");
-	ofAddListener(showInstructionsTimer.TIMER_COMPLETE , this, &Instructions::doIntro);
+	ofAddListener(showInstructionsTimer.TIMER_COMPLETE, this, &Instructions::doIntro);
 
 	startShowTimer(1000);
 }

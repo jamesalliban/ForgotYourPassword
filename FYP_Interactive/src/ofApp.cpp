@@ -4,19 +4,17 @@
 TODO:
 		
 - Transition
-	- Match x, y and height of bounding box
-	- Try morphing between points - match resample count
-		- working with multiple 
-	- Try morphing back after only if a user is in place. Otherwise fade out.
+	- Try morphing between points - match resample count:
+		- Stop flickr at start of morph where tweetTo is briefly shown.
+		- Match x, y of bottom centre, and width of bounding box.
+		- EaseInOut tween.
+	- Outro should be a straight fade.
 
 	
 - MISC
 	- Add start and end offsets for videos to gui - update the data being sent to soundManager
-
-- VIDEOS
-
-- NICE TO HAVE
 	- Instructions silhouettes should have holes instead of black shapes
+
 
 */
 
@@ -28,7 +26,7 @@ void ofApp::setup()
 	ofSetWindowShape(1200, 1000);
 	ofSetFrameRate(30);
 	ofSetBackgroundAuto(false);
-	ofSetFullscreen(true);
+	ofSetFullscreen(false);
     ofDisableArbTex();
 	ofEnableSmoothing();
 
@@ -93,10 +91,10 @@ void ofApp::draw()
 
 		string debugStr;
 		debugStr += "----KINECT----\n"; 
-		debugStr += "Num Skeletons" + ofToString(kinectManager.getSkeletonData().size()) + "\n"; 
+		debugStr += "Num Skeletons: " + ofToString(kinectManager.getSkeletonData().size()) + "\n"; 
 		debugStr += "\n"; 
 		debugStr += "----AUDIO----\n"; 
-		debugStr += "Smooth amplitude = " + ofToString(float((int)(smoothAmplitude * 100)) / 100.0) + "\n"; 
+		debugStr += "Smooth amplitude: " + ofToString(float((int)(smoothAmplitude * 100)) / 100.0) + "\n"; 
 
 		ofPushStyle();
 		ofSetColor(255);

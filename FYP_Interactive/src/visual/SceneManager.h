@@ -30,6 +30,7 @@ public:
 	void resumeVideo();
 	void scrubVideo(int offset);
 	int getSequenceSize();
+	void transitionComplete(float & f);
 	void exit();
 
 
@@ -112,4 +113,5 @@ public:
 	float largeClippingScale;
 
 	bool isRecording;
+	bool isStartingVideo;
 };

@@ -31,6 +31,10 @@ void SceneManager::setup()
 	userSilhouette.setup(srcW, srcH);
 	dancerSilhouette.setup(srcW, srcH);	
 	
+	ofAddListener(dancerSilhouette.transitionCompleteEvent, this, &SceneManager::transitionComplete);
+
+	isStartingVideo = false;
+	
 	dancerSilhouette.colour[0] = &silhouetteCol[0];
 	dancerSilhouette.colour[1] = &silhouetteCol[1];
 	dancerSilhouette.colour[2] = &silhouetteCol[2];
@@ -169,10 +173,31 @@ void SceneManager::update(Depth & depth, bool isPaused)
 	userFbo[currentVidFbo].readToPixels(userPix);
 	
 	if (dancerPix.getWidth() > 0)
+	{
 		dancerSilhouette.update(dancerPix);
-	
+	}
 	if (userPix.getWidth() > 0)
+	{
+		if (isStartingVideo)
+		{
+			isStartingVideo = false;
+			dancerSilhouette.startAnimation(userPix);
+		}
+		//if (player.isPlaying)
 		userSilhouette.update(userPix);
+	}
+	else
+	{
+		// just in case the user becomes unrecogniseable 1 frame after the pose
+		// is recognised. Unlikely but possible
+		if (isStartingVideo)
+		{
+			isStartingVideo = false;
+			player.play();
+			player.setFrame(player.getTotalNumFrames() - 3);
+			dancerSilhouette.isIntro = false;
+		}
+	}
 }
 
 
@@ -192,7 +217,9 @@ void SceneManager::draw(Depth & depth)
 	if (player.isLoaded() && isPlayingSequence)
 	{
 		if (isDancerVisible)
+		{
 			dancerSilhouette.draw();
+		}
 	}
 
 	if (isUserVisible)
@@ -347,8 +374,14 @@ void SceneManager::playVideo(int sequenceID)
 	if (sId.size() < 2)
 		sId = '0' + sId;
 
+	player.stop();
 	player.loadMovie("movies/FYP_Sequence_" + sId + ".mov");
 	player.play();
+
+	//player.update();
+	player.setFrame(2);
+	player.setPaused(true);
+	isStartingVideo = true;
 	
 	cout << "playVideo " << "movies/FYP_Sequence_" + sId + ".mov" << endl;
 
@@ -356,6 +389,8 @@ void SceneManager::playVideo(int sequenceID)
 
 	isUserVisible = false;
 	isDancerVisible = true;
+
+	dancerSilhouette.isIntro = true;
 
 	instructions.stopAll();
 }
@@ -367,6 +402,7 @@ void SceneManager::stopVideo()
 	isPlayingSequence = false;
 	isUserVisible = true;
 	isDancerVisible = false;
+	dancerSilhouette.isIntro = false;
 }
 
 
@@ -404,6 +440,12 @@ int SceneManager::getSequenceSize()
 	ofDirectory dir;
 	dir.listDir("movies");
 	return dir.getFiles().size();
+}
+
+
+void SceneManager::transitionComplete(float & f)
+{
+	player.setPaused(false);
 }
 
 
