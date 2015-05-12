@@ -76,12 +76,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>DISPLAY TIME</Name>
-    <Value>4447.368652344</Value>
+    <Value>5815.789550781</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>LOOP TIME</Name>
-    <Value>20131.580078125</Value>
+    <Value>16769.005859375</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -91,5 +91,5 @@
 <Widget>
     <Kind>4</Kind>
     <Name>START ON VIDEO END DELAY</Name>
-    <Value>11833.333007813</Value>
+    <Value>6611.111328125</Value>
 </Widget>

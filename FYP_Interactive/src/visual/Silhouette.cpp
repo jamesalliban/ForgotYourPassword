@@ -18,7 +18,6 @@ void Silhouette::update(ofPixels & pix)
 {
 	if (isIntroFade)
 	{
-		cout << "fading. Adding " << introAnimSpeed << " to alphafade = "<< alphaFade << endl;
 		alphaFade += introAnimSpeed;
 		if (alphaFade >= 1.0)
 		{
@@ -105,7 +104,7 @@ void Silhouette::calculateMorph()
 	vector<ofPolyline> tweenFromHolesBySize;
 	vector<ofPolyline> tweenToHolesBySize;
 
-	// populate vectors with the twettfrom shape and hole blobs
+	// populate vectors with the tweenfrom shape and hole blobs
 	for (int i = 0; i < tweenFromPoseblobs.size(); i++)
 	{
 		Blob blob = tweenFromPoseblobs[i];
@@ -118,7 +117,7 @@ void Silhouette::calculateMorph()
 	std::sort(tweenFromHolesBySize.begin(), tweenFromHolesBySize.end(), compareBlobsBySize());
 	std::sort(tweenFromShapesBySize.begin(), tweenFromShapesBySize.end(), compareBlobsBySize());
 		
-	// populate vectors with the twettto shape and hole blobs
+	// populate vectors with the tweento shape and hole blobs
 	for (int i = 0; i < tweenToPoseblobs.size(); i++)
 	{
 		Blob blob = tweenToPoseblobs[i];
@@ -131,6 +130,7 @@ void Silhouette::calculateMorph()
 	std::sort(tweenToHolesBySize.begin(), tweenToHolesBySize.end(), compareBlobsBySize());
 	std::sort(tweenToShapesBySize.begin(), tweenToShapesBySize.end(), compareBlobsBySize());
  
+
 	if (tweenFromPoseblobs.size() > 0)
 	{
 		// if one polyline has less verties than the other add a vertex to the end of the one with less
@@ -163,6 +163,38 @@ void Silhouette::calculateMorph()
 			pnt.y = ofLerp(pntFrom.y, pntTo.y, normTransitionProgress);
 			blob.polyline.addVertex(pnt);
 		}
+		
+		//for (int i = 0; i < tweenFromHolesBySize.size(); i++)
+		//{
+
+		//	for (int j = 0; j < tweenFromHolesBySize[i].getVertices().size(); j++)
+		//	{
+		//		ofPoint pntFrom = tweenFromHolesBySize[i].getVertices()[j];
+		//		ofPoint pntTo = tweenFromHolesBySize[i].getBoundingBox().getCenter();
+		//		ofPoint pnt;
+		//		pnt.x = ofLerp(pntFrom.x, pntTo.x, normTransitionProgress);
+		//		pnt.y = ofLerp(pntFrom.y, pntTo.y, normTransitionProgress);
+		//		blob.polyline.addVertex(pnt);
+		//	}
+		//}
+
+		
+		
+		//for (int i = 0; i < tweenToHolesBySize.size(); i++)
+		//{
+
+		//	for (int j = 0; j < tweenToHolesBySize[i].getVertices().size(); j++)
+		//	{
+		//		ofPoint pntFrom = tweenToHolesBySize[i].getBoundingBox().getCenter();
+		//		ofPoint pntTo = tweenToHolesBySize[i].getVertices()[j];
+		//		ofPoint pnt;
+		//		pnt.x = ofLerp(pntFrom.x, pntTo.x, normTransitionProgress);
+		//		pnt.y = ofLerp(pntFrom.y, pntTo.y, normTransitionProgress);
+		//		blob.polyline.addVertex(pnt);
+		//	}
+		//}
+
+
 		blobs.push_back(blob);
 	}
 }
@@ -175,7 +207,6 @@ void Silhouette::draw()
 
 void Silhouette::drawSilhouette(vector<Blob> & _blobs)
 {
-
 	ofPushStyle();
 	ofPushMatrix();
 	for (int i = 0; i < _blobs.size(); i++)
@@ -211,10 +242,6 @@ void Silhouette::startAnimation(ofPixels & pix)
 
 void Silhouette::calculateTotalBoundingBox(ofRectangle & rectangle, vector<Blob> & _blobs)
 {
-	//rectangle.x = 0;
-	//rectangle.y = 0;
-	//rectangle.width = 0;
-	//rectangle.height = 0;
 	// calculate total bounding box
 	ofRectangle bboxTotal;
 	for (int i = 0; i < _blobs.size(); i++)

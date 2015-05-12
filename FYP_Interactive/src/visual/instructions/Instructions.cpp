@@ -8,6 +8,7 @@ void Instructions::setup(int _srcW, int _srcH)
 	isActive = false;
 	isIntro = false;
 	isOutro = false;
+	isVideoRunning = false;
 	
 	//hideInstructionsTimer.setup(100, "HIDE");
 	//hideInstructionsTimer.setup(6600, "HIDE");
@@ -198,6 +199,7 @@ void Instructions::startShowTimer(int millis)
 
 void Instructions::doIntro(int &args)
 {
+	if (isActive || isIntro || isVideoRunning) return;
 	isActive = true;
 	isIntro = true;
 	selectNewPoses();

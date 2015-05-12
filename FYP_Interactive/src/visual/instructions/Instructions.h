@@ -63,5 +63,6 @@ public:
 	float poseSelectionSpacing;
 	float poseSelectionScale;
 
+	bool isVideoRunning;
 	//float 
 };

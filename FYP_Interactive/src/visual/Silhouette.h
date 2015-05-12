@@ -12,7 +12,10 @@ struct Blob
 
 struct compareBlobsBySize
 {
-	bool operator() (ofPolyline lhs, ofPolyline rhs) { return lhs.getArea() > rhs.getArea(); }
+	bool operator() (ofPolyline lhs, ofPolyline rhs) 
+	{ 
+		return lhs.getBoundingBox().width * lhs.getBoundingBox().height > rhs.getBoundingBox().width * rhs.getBoundingBox().height; 
+	}
 };
 
 

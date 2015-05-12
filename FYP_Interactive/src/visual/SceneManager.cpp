@@ -76,6 +76,8 @@ void SceneManager::update(Depth & depth, bool isPaused)
 
 			userSilhouette.startIntroFade();
 			
+			instructions.isVideoRunning = false;
+			
 			float ddd;
 			ofNotifyEvent(videoCompleteEvent, ddd);	
 
@@ -402,6 +404,7 @@ void SceneManager::playVideo(int sequenceID)
 	dancerSilhouette.isIntro = true;
 
 	instructions.stopAll();
+	instructions.isVideoRunning = true;
 }
 
 
