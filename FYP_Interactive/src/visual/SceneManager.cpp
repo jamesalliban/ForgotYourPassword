@@ -63,6 +63,8 @@ void SceneManager::update(Depth & depth, bool isPaused)
 	{
 		player.update();
 
+		dancerSilhouette.updateVideoProgress(player.getCurrentFrame(), player.getTotalNumFrames());
+
 		// check to see if the video has completed
 		if (player.getCurrentFrame() >= player.getTotalNumFrames() - 2)
 		{
@@ -71,6 +73,8 @@ void SceneManager::update(Depth & depth, bool isPaused)
 			isPlayingSequence = false;
 			isUserVisible = true;
 			isDancerVisible = false;
+
+			userSilhouette.startIntroFade();
 			
 			float ddd;
 			ofNotifyEvent(videoCompleteEvent, ddd);	
@@ -174,7 +178,10 @@ void SceneManager::update(Depth & depth, bool isPaused)
 	
 	if (dancerPix.getWidth() > 0)
 	{
-		dancerSilhouette.update(dancerPix);
+		if (isStartingVideo)
+			dancerSilhouette.update(userPix);
+		else
+			dancerSilhouette.update(dancerPix);
 	}
 	if (userPix.getWidth() > 0)
 	{
@@ -318,7 +325,6 @@ void SceneManager::drawDebug(Depth & depth)
 		ofPopMatrix();
 	}
    
-
     if (screenRecorder.getIsRecording())
 	{
 		fastFboReader.readToPixels(depthFbo, pix);
@@ -373,13 +379,15 @@ void SceneManager::playVideo(int sequenceID)
 	string sId = ofToString(sequenceID);
 	if (sId.size() < 2)
 		sId = '0' + sId;
-
+	
 	player.stop();
+	player.close();
 	player.loadMovie("movies/FYP_Sequence_" + sId + ".mov");
 	player.play();
 
-	//player.update();
 	player.setFrame(2);
+	player.update();
+	
 	player.setPaused(true);
 	isStartingVideo = true;
 	
@@ -402,7 +410,7 @@ void SceneManager::stopVideo()
 	isPlayingSequence = false;
 	isUserVisible = true;
 	isDancerVisible = false;
-	dancerSilhouette.isIntro = false;
+	dancerSilhouette.stop();
 }
 
 

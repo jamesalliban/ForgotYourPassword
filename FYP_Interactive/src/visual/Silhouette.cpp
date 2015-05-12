@@ -8,11 +8,24 @@ void Silhouette::setup(int _srcW, int _srcH)
 	srcH = _srcH;
 
 	isIntro = false;
+	hasToBBoxBeenCalculated = true;
+	isIntroFade = false;
+	alphaFade = 1.0;
 }
 
 
 void Silhouette::update(ofPixels & pix)
 {
+	if (isIntroFade)
+	{
+		cout << "fading. Adding " << introAnimSpeed << " to alphafade = "<< alphaFade << endl;
+		alphaFade += introAnimSpeed;
+		if (alphaFade >= 1.0)
+		{
+			alphaFade = 1.0;
+			isIntroFade = false;
+		}
+	}
 
 	// morph between user and dancer
 	if (isIntro)
@@ -29,6 +42,11 @@ void Silhouette::update(ofPixels & pix)
 		else
 		{
 			createSilhouette(pix, tweenToPoseblobs);
+			if (!hasToBBoxBeenCalculated)
+			{
+				hasToBBoxBeenCalculated = true;
+				calculateTotalBoundingBox(tweenToBBox, tweenToPoseblobs);
+			}
 			calculateMorph();
 		}
 	}
@@ -48,7 +66,7 @@ void Silhouette::createSilhouette(ofPixels & pix, vector<Blob> & _blobs)
 	contourFinder.findContours(cvGreyImg, minContourArea, maxContourArea, contourAmountConsidered, isFindHoles, isUseApproximation);
 
 	_blobs.clear();
-
+	
 	for (int i = 0; i < contourFinder.blobs.size(); i++)
 	{
 		Blob blob;
@@ -58,6 +76,19 @@ void Silhouette::createSilhouette(ofPixels & pix, vector<Blob> & _blobs)
 			ofPoint pnt = contourFinder.blobs[i].pts[j];
 			pnt.x -= srcW * 0.5;
 			pnt.y -= srcH * 0.5;
+			pnt *= scale;
+			pnt.x += position.x * ofGetWidth();
+			pnt.y += position.y * ofGetHeight();
+			
+			//float bboxXOffset = (tweenToBBox.x + tweenToBBox.width * 0.5) - (tweenFromBBox.x + tweenFromBBox.width * 0.5);
+			////float bboxXOffset = (tweenFromBBox.x + tweenFromBBox.width * 0.5) - (tweenToBBox.x + tweenToBBox.width * 0.5);
+			//if (j == 1)
+			//{
+			//	cout << "to   x:" << tweenToBBox.x << ", w:" << tweenToBBox.width << endl;
+			//	cout << "from x:" << tweenFromBBox.x << ", w:" << tweenFromBBox.width << endl;
+			//	//cout << bboxXOffset << endl;
+			//}
+			//pnt.x += bboxXOffset;
 			polyline.addVertex(pnt);
 		}
 		polyline = polyline.getResampledByCount(resampleAmount);
@@ -102,8 +133,6 @@ void Silhouette::calculateMorph()
  
 	if (tweenFromPoseblobs.size() > 0)
 	{
-		cout << "1 - " << tweenFromShapesBySize[0].getVertices().size() << " - " << tweenToShapesBySize[0].getVertices().size() << endl;
-
 		// if one polyline has less verties than the other add a vertex to the end of the one with less
 		if (tweenFromShapesBySize[0].getVertices().size() != tweenToShapesBySize[0].getVertices().size())
 		{
@@ -135,43 +164,33 @@ void Silhouette::calculateMorph()
 			blob.polyline.addVertex(pnt);
 		}
 		blobs.push_back(blob);
-		//cout << "2 - " << tweenFromShapesBySize[0].getVertices().size() << " - " << tweenToShapesBySize[0].getVertices().size() << endl;
 	}
-	//float minShapeNum = MIN(tweenFromShapesBySize.size(), tweenToShapesBySize.size());
-	//cout << tweenFromShapesBySize[0].getVertices().size() << " - " << tweenToShapesBySize[0].getVertices().size() << endl;
-	//cout << tweenFromShapesBySize[0].getVertices().size() << endl;
-	//cout << tweenToShapesBySize[0].getVertices().size() << endl;
-
-	cout <<  tweenFromPoseblobs.size() << endl;
-
 }
 
 void Silhouette::draw()
 {
 	drawSilhouette(blobs);
-	if (isIntro)
-	{
-		//drawSilhouette(tweenFromPoseblobs);
-	}
 }
 
 
 void Silhouette::drawSilhouette(vector<Blob> & _blobs)
 {
+
 	ofPushStyle();
 	ofPushMatrix();
-	ofTranslate(position.x * ofGetWidth(), position.y * ofGetHeight());
-	ofScale(scale, scale);
 	for (int i = 0; i < _blobs.size(); i++)
 	{
 		vector<ofPoint>& vertices = _blobs[i].polyline.getVertices();
+		
 		if (_blobs[i].isHole)
-			ofSetColor(*holeColour[0], *holeColour[1], *holeColour[2]);
+			ofSetColor(*holeColour[0], *holeColour[1], *holeColour[2], 255);
 		else
-			ofSetColor(*colour[0], *colour[1], *colour[2]);
+			ofSetColor(*colour[0], *colour[1], *colour[2], 255 * alphaFade);
 		ofBeginShape();
 		for(int j = 0; j < vertices.size(); j++) 
+		{	
 			ofVertex(vertices[j]);
+		}
 		ofEndShape();
 	}
 	ofPopMatrix();
@@ -183,8 +202,38 @@ void Silhouette::startAnimation(ofPixels & pix)
 {
 	frameAtTransitionStart = ofGetFrameNum();
 	isIntro = true;
+	hasToBBoxBeenCalculated = false;
 	createSilhouette(pix, tweenFromPoseblobs);
+
+	calculateTotalBoundingBox(tweenFromBBox, tweenFromPoseblobs);
 }
+
+
+void Silhouette::calculateTotalBoundingBox(ofRectangle & rectangle, vector<Blob> & _blobs)
+{
+	//rectangle.x = 0;
+	//rectangle.y = 0;
+	//rectangle.width = 0;
+	//rectangle.height = 0;
+	// calculate total bounding box
+	ofRectangle bboxTotal;
+	for (int i = 0; i < _blobs.size(); i++)
+	{
+		ofRectangle bbox = _blobs[i].polyline.getBoundingBox();
+		if (i == 0)
+		{
+			rectangle = bbox;
+		}
+		else
+		{
+			if (bbox.x < rectangle.x) rectangle.x = bbox.x;
+			if (bbox.y < rectangle.y) rectangle.y = bbox.y;
+			if (bbox.width < rectangle.width) rectangle.width = bbox.width;
+			if (bbox.height < rectangle.height) rectangle.height = bbox.height;
+		}
+	}
+}
+
 
 void Silhouette::drawCvGreyImg()
 {
@@ -194,4 +243,23 @@ void Silhouette::drawCvGreyImg()
 void Silhouette::drawContour()
 {
 	contourFinder.draw();
+}
+
+void Silhouette::updateVideoProgress(int currentFrame, int totalFrames)
+{
+	alphaFade = ofMap(currentFrame, totalFrames - outroAnimSpeed, totalFrames, 1.0, 0.0, true);
+}
+
+void Silhouette::startIntroFade()
+{
+	isIntroFade = true;
+	alphaFade = 0;
+}
+
+void Silhouette::stop()
+{
+	isIntro = false;
+	blobs.clear();
+	tweenFromPoseblobs.clear();
+	tweenToPoseblobs.clear();
 }

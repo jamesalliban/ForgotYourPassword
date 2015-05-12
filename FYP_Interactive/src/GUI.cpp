@@ -12,7 +12,7 @@ void GUI::setup(int sequenceSize, vector<ofImage> skelImages)
 	addUniversalSilhouetteGUI();
 	addDancerSilhouetteGUI();
 	addUserSilhouetteGUI();
-	addSilhouetteMorphingGUI();
+	addSilhouetteTransitionGUI();
 	addSequenceSelectorGUI(sequenceSize, skelImages);
     addSoundGUI();
 	addInstructionsGUI();
@@ -182,10 +182,17 @@ void GUI::addUserSilhouetteGUI()
 }
 
 
-void GUI::addSilhouetteMorphingGUI()
+void GUI::addSilhouetteTransitionGUI()
 {
-    ofxUICanvas* gui = getNewGUI("SILHOUETTE MORPHING");
+    ofxUICanvas* gui = getNewGUI("SILHOUETTE TRANSITION");
+    gui->addLabel("MORPHING");
 	gui->addSlider("FRAME SPEED", 5, 120, &app->sceneManager.dancerSilhouette.tweenFrameTotal, length, dim);
+	
+	gui->addSpacer(length, 1);
+	gui->addLabel("FADE");
+	gui->addSlider("DANCER OUTRO ANIM SPEED (FRAMES)", 5, 60, &app->sceneManager.dancerSilhouette.outroAnimSpeed, length, dim);
+	gui->addSlider("USER INTRO SPEED (PERCENT)", 0.01, 0.5, &app->sceneManager.userSilhouette.introAnimSpeed, length, dim);
+	
     finaliseCanvas(gui);
 }
 

@@ -6,6 +6,7 @@
 struct Blob
 {
 	ofPolyline polyline;
+	//ofPolyline polylineWithOffset;
 	bool isHole;
 };
 
@@ -28,8 +29,12 @@ public:
 	void draw();
 	void drawSilhouette(vector<Blob> & _blobs);
 	void startAnimation(ofPixels & pix);
+	void calculateTotalBoundingBox(ofRectangle & rectangle, vector<Blob> & _blobs);
 	void drawCvGreyImg();
 	void drawContour();
+	void updateVideoProgress(int currentFrame, int totalFrames);
+	void startIntroFade();
+	void stop();
 	
 	vector<Blob> blobs;
 	vector<Blob> tweenFromPoseblobs;
@@ -39,6 +44,11 @@ public:
 	float frameAtTransitionStart;
 	float transitionFrameProgress;
 	float normTransitionProgress;
+	
+	ofRectangle tweenFromBBox;
+	ofRectangle tweenToBBox;
+
+	bool hasToBBoxBeenCalculated;
 	
 	ofEvent<float> transitionCompleteEvent;
 
@@ -65,4 +75,8 @@ public:
 	float scale;
 
 	bool isIntro;
+	bool isIntroFade;
+	float alphaFade;
+	float outroAnimSpeed;
+	float introAnimSpeed;
 };
