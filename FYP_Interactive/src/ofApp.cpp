@@ -155,6 +155,7 @@ void ofApp::keyPressed(int key)
 	{
 		sceneManager.stopVideo();
 		soundManager.stopSound();
+		sceneManager.instructions.startShowTimer(startInstructionsVideoEndDelay);
 	}
 	if (key == 't')
 	{

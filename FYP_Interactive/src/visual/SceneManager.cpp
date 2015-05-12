@@ -78,6 +78,7 @@ void SceneManager::update(Depth & depth, bool isPaused)
 			
 			float ddd;
 			ofNotifyEvent(videoCompleteEvent, ddd);	
+
 		}
 		
 		// blur the video horizontally

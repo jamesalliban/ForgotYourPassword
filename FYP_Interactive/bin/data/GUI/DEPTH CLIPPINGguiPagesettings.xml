@@ -16,32 +16,32 @@
 <Widget>
     <Kind>4</Kind>
     <Name>LIVE NEAR CLIP</Name>
-    <Value>0.371345043</Value>
+    <Value>0.309941530</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>LIVE FAR CLIP</Name>
-    <Value>0.622807026</Value>
+    <Value>0.549707592</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>LIVE FLOOR NEAR CLIP</Name>
-    <Value>0.839181304</Value>
+    <Value>0.874269009</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>LIVE FLOOR FAR CLIP</Name>
-    <Value>0.757309914</Value>
+    <Value>0.809941530</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>LIVE CEILING NEAR CLIP</Name>
-    <Value>0.090643287</Value>
+    <Value>-0.038011700</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>LIVE CEILING FAR CLIP</Name>
-    <Value>0.301169574</Value>
+    <Value>0.143274844</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
